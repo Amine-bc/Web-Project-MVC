@@ -1,0 +1,19 @@
+{
+    "name": "aminebc/mvc_framework_php",
+    "autoload": {
+        "psr-4": {
+            "app\\": "./"
+        }
+    },
+    "authors": [
+        {
+            "name": "Mohammed El Amine Bouchoucha",
+            "email": "96586941+Amine-bc@users.noreply.github.com"
+        }
+    ],
+    "require": {
+      "ext-pdo": "*",
+        "vlucas/phpdotenv": "^5.6",
+        "endroid/qr-code": "^6.0"
+    }
+}
