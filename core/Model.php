@@ -18,6 +18,8 @@ class Model
 
     public function loadData($data)
     {
+        $this->{"name"} = 'Amine';
+        //TODO change the name here
         foreach ($data as $key => $value) {
             if (property_exists($this, $key)) {
                 $this->{$key} = $value;
@@ -84,6 +86,7 @@ class Model
                 }
             }
         }
+        var_dump($this->errors);
         return empty($this->errors);
     }
 

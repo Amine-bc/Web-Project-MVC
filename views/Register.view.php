@@ -62,12 +62,13 @@
 <div class="cofc">
     <div class="containerRegister">
         <h1>Devenir Membre</h1>
-        <form id="registration-form" enctype="multipart/form-data" method="POST" action="register.php">
-            <input type="text" name="full_name" placeholder="Nom Complet" required>
+        <form id="registration-form" enctype="multipart/form-data" method="POST" action="">
+            <input type="text" name="name" placeholder="Nom Complet" required>
             <input type="email" name="email" placeholder="Adresse Email" required>
             <input type="password" name="password" placeholder="Mot de passe" required>
             <input type="password" name="confirm_password" placeholder="Confirmer le Mot de passe" required>
-            <select name="card_type" required>
+
+            <select name="subscription_type" required>
                 <option value="">Type de Carte</option>
                 <option value="Classique">Classique</option>
                 <option value="Jeunes">Jeunes</option>
@@ -79,6 +80,8 @@
             <input type="file" name="identity" accept="image/*,application/pdf" required>
             <label>Reçu de Paiement:</label>
             <input type="file" name="payment_receipt" accept="image/*,application/pdf" required>
+
+
             <button type="submit">S'inscrire</button>
         </form>
         <a href="/login">Déjà membre ? Se connecter</a>
@@ -86,3 +89,4 @@
 </div>
 </body>
 </html>
+
