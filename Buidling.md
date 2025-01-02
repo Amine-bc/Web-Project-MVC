@@ -1,13 +1,5 @@
 # Plan to organise my work
 
-- Index add the post in register 
-- Controller 
-  - then there you save to the model save()
-  - you generate the qr code
-  - render card as html ( find a way if you can make it html to png to be downloaded)
-(une carte de membre électronique contenant le nom et le logo de
-l’association, l’identifiant du membre, le nom et prénom et un code QR est générée dans
-le compte du membre ce qui permet l’accès aux remises.)
 
 - Les remises dépendent du type de la carte acheté (Classique, jeunes, premium,…ect). ( he means there are many tables ??)
 
@@ -34,8 +26,22 @@ and sends you to do renouvelement)
   - when click the button increments a variable ( visually also )
     - and then run a function ajax that will get the next remise ..etc
 
+// ------------------------------------------------------------------------------------------------------------------------ //
+
+- Index add the post in register
+- Controller
+  - then there you save to the model save() Done
+  - you generate the qr code Done
+  - render card as html ( find a way if you can make it html to png to be downloaded)
+    (une carte de membre électronique contenant le nom et le logo de
+    l’association, l’identifiant du membre, le nom et prénom et un code QR est générée dans
+    le compte du membre ce qui permet l’accès aux remises.) Done
+
 ---
 # Things that I passed and missed and need to add
 - change content of news in db.
+- go to ui home screen and add the effect of zoom on cards of events center them 
+- add zoom effect on page events
+- 
 
 ---

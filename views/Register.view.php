@@ -74,13 +74,6 @@
                 <option value="Jeunes">Jeunes</option>
                 <option value="Premium">Premium</option>
             </select>
-            <label>Photo:</label>
-            <input type="file" name="photo" accept="image/*" required>
-            <label>Pièce d'identité:</label>
-            <input type="file" name="identity" accept="image/*,application/pdf" required>
-            <label>Reçu de Paiement:</label>
-            <input type="file" name="payment_receipt" accept="image/*,application/pdf" required>
-
 
             <button type="submit">S'inscrire</button>
         </form>
@@ -89,4 +82,12 @@
 </div>
 </body>
 </html>
+
+<label>Photo:</label>
+
+<input type="file" name="photo" accept="image/*" required>
+<label>Pièce d'identité:</label>
+<input type="file" name="identity" accept="image/*,application/pdf" required>
+<label>Reçu de Paiement:</label>
+<input type="file" name="payment_receipt" accept="image/*,application/pdf" required>
 

@@ -79,7 +79,9 @@
             color: white;
             text-align: center;
             padding: 10px 20px;
-
+            position: absolute;
+            bottom: 0;
+            width: 100%;
         }
 
         footer ul {

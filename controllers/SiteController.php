@@ -13,6 +13,7 @@ use app\core\Controller;
 use app\core\middlewares\AuthMiddleware;
 use app\core\Request;
 use app\core\Response;
+use app\core\Utils;
 use app\models\LoginForm;
 use app\models\News;
 use app\models\Partners;
@@ -99,9 +100,13 @@ class SiteController extends Controller
             // If validation passes and the user is saved successfully
             if ($registerModel->validate() && $registerModel->save()) {
                 App::$app->session->setFlash('success', 'Thanks for registering');
-                App::$app->response->redirect('/');
-                return 'Show success page';
+                $text = $registerModel->email ;
+                Utils::generateQRcode($text,App::$ROOT_DIR.'/public/images') ;
+                return $this->render('WelcomeNewUser', [
+                    'name' => $registerModel->name, 'email' => $registerModel->email, 'path' => '/images/qrcode.png'
+                ]);
             }
+
         }
 
         // Render the registration form with errors (if any)
