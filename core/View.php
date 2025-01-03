@@ -8,10 +8,8 @@ class View
 
     public function renderView($view, array $params)
     {
+
         $layoutName = App::$app->layout;
-        if (App::$app->controller) {
-            $layoutName = App::$app->controller->layout;
-        }
         $viewContent = $this->renderViewOnly($view, $params);
         ob_start();
         include_once App::$ROOT_DIR."/views/layouts/$layoutName.view.php";

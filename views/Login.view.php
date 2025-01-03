@@ -57,9 +57,9 @@
 
     <div class="containerLogin">
     <h1>Login</h1>
-    <form>
-        <input type="email" placeholder="Email" required>
-        <input type="password" placeholder="Password" required>
+    <form method="post">
+        <input type="email" placeholder="Email" name="email" required>
+        <input type="password" placeholder="Password" name="password" required>
         <button type="submit">Login</button>
     </form>
     <a href="/register">Don't have an account? Register</a>

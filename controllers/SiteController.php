@@ -62,17 +62,18 @@ class SiteController extends Controller
     public function login(Request $request)
     {
         //var_dump($request->getBody(), $request->getRouteParam('id'));
-        $loginForm = new LoginForm();
+        $userModel = new User();
+        $userController = new UserController();
         if ($request->getMethod() === 'post') {
-            $loginForm->loadData($request->getBody());
-            if ($loginForm->validate() && $loginForm->login()) {
-                Application::$app->response->redirect('/');
+            $userModel->loadData($request->getBody());
+            if ($userController->login($request,$userModel)) {
+                App::$app->response->redirect('/');
                 return;
+                // set session
             }
         }
-        $this->setLayout('auth');
         return $this->render('login', [
-            'model' => $loginForm
+            'model' => $userModel
         ]);
     }
 
@@ -85,8 +86,9 @@ class SiteController extends Controller
 
     public function logout(Request $request, Response $response)
     {
-        Application::$app->logout();
-        $response->redirect('/');
+        App::$app->logout();
+        App::$app->response->redirect('/');
+
     }
 
     public function contact()

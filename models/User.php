@@ -27,7 +27,7 @@ class User extends UserModel
         return 'Users';
     }
 
-    public function attributes(): array
+       public function attributes(): array
     {
         return [
             'name',

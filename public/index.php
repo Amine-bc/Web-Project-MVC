@@ -6,12 +6,12 @@ require_once '../core/App.php';
 use app\controllers\PartnersController;
 use app\controllers\SiteController;
 use app\core\App ;
-use app\core\UserModel;
+use app\models\User;
 
 $dotenv = \Dotenv\Dotenv::createImmutable(dirname(__DIR__));
 $dotenv->load();
 $config = [
-    'userClass' => UserModel::class,
+    'userClass' => User::class,
     'db' => [
         'dsn' => $_ENV['DB_DSN'],
         'user' => $_ENV['DB_USER'],

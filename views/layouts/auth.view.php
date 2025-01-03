@@ -130,8 +130,7 @@
 <nav>
     <ul>
         <li><a href="/">Accueil</a></li>
-        <li><a class="right" href="/login">se deconnecter</a></li>
-
+        <li><a class="right" href="/logout">se deconnecter</a></li>
 
     </ul>
 </nav>

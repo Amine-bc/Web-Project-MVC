@@ -40,8 +40,9 @@ class App
         $this->db = new Database($config['db']);
         $userId = App::$app->session->get('user') ?? null;
         if ($userId) {
+            $this->layout = 'auth';
             $key = $this->userClass::primaryKey();
-            $this->user = $this->userClass::findOne([$key => $userId]);
+            $this->user = $this->userClass::findOneObject([$key => $userId]);
         }
         //var_dump(App::$app->db->applyMigrations());
     }

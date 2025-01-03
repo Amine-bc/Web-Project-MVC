@@ -52,5 +52,20 @@ class UserController extends Controller
         ]);
 
     }
+    public function login(Request $request,$model){
+        var_dump($model);
+        $user = User::findOneObject(['email' => $model->email]);
+        var_dump($user);
+
+        if (!$user) {
+            $model->addError('email', 'User does not exist with this email address');
+            return false;
+        }
+        if (!password_verify($model->password, $user->password)) {
+            $model->addError('password', 'Password is incorrect');
+            return false;
+        }
+        return App::$app->login($user);
+    }
 
 }
