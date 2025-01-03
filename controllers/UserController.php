@@ -68,4 +68,10 @@ class UserController extends Controller
         return App::$app->login($user);
     }
 
+    public function profile(Request $request){
+        $userId = App::$app->session->get('user') ?? null;
+        $user = User::findOneObject(['user_id' => $userId]);
+        return $this->render('profile', ['user'=>$user]);
+    }
+
 }

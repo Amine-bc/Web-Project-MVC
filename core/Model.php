@@ -84,7 +84,7 @@ class Model
                 }
             }
         }
-        var_dump($this->errors);
+        //var_dump($this->errors);
         return empty($this->errors);
     }
 

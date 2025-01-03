@@ -104,6 +104,7 @@ class Router
             $controller->action = $callback[1];
             App::$app->controller = $controller;
             $middlewares = $controller->getMiddlewares();
+            //var_dump($middlewares);
             foreach ($middlewares as $middleware) {
                 $middleware->execute();
             }

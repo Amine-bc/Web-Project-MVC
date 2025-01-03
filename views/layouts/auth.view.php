@@ -75,12 +75,11 @@
 
         /* Pied de page */
         footer {
-            position: absolute;
-            bottom: 0;
-            left: 0;
+            position: relative;
             width: 100%;
             background-color: #333;
             color: white;
+            margin-top: auto;
             text-align: center;
             padding: 10px 20px;
         }
@@ -130,6 +129,7 @@
 <nav>
     <ul>
         <li><a href="/">Accueil</a></li>
+        <li><a href="/profile">Profile</a></li>
         <li><a class="right" href="/logout">se deconnecter</a></li>
 
     </ul>

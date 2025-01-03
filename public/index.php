@@ -5,6 +5,7 @@ require_once '../core/App.php';
 
 use app\controllers\PartnersController;
 use app\controllers\SiteController;
+use app\controllers\UserController;
 use app\core\App ;
 use app\models\User;
 
@@ -45,6 +46,6 @@ $app->router->post('/partners', [SiteController::class,'partners']);
 
 $app->router->get('/news', [SiteController::class,'news']);
 $app->router->get('/tablePartners', [PartnersController::class,'partnersTable']);
-
+$app->router->get('/profile', [UserController::class,'profile']);
 
 $app->run();
