@@ -2,6 +2,7 @@
 
 namespace app\core;
 
+use app\core\exception\ForbiddenException;
 use app\core\exception\NotFoundException;
 
 class Router
@@ -104,10 +105,11 @@ class Router
             $controller->action = $callback[1];
             App::$app->controller = $controller;
             $middlewares = $controller->getMiddlewares();
-            //var_dump($middlewares);
-            foreach ($middlewares as $middleware) {
-                $middleware->execute();
-            }
+                foreach ($middlewares as $middleware) {
+                    $middleware->execute();
+                }
+
+
             $callback[0] = $controller;
         }
         return call_user_func($callback, $this->request, $this->response);

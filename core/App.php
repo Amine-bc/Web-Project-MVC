@@ -75,7 +75,7 @@ class App
         try {
             echo $this->router->resolve();
         } catch (\Exception $e) {
-            echo $this->router->renderView('_error', [
+            echo $this->router->renderViewOnly('_error', [
                 'exception' => $e,
             ]);
         }

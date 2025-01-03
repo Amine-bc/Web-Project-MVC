@@ -69,13 +69,18 @@ class SiteController extends Controller
             $userModel->loadData($request->getBody());
             if ($userController->login($request,$userModel)) {
                 App::$app->response->redirect('/');
-                return;
+                (new Response())->redirect('profile');
                 // set session
             }
         }
         return $this->render('login', [
             'model' => $userModel
         ]);
+    }
+
+    public function profile(Request $request){
+        $usercontroller = new UserController();
+        return $usercontroller->profile($request);
     }
 
     public function register(Request $request)
@@ -97,10 +102,7 @@ class SiteController extends Controller
         return $this->render('contact');
     }
 
-    public function profile()
-    {
-        return $this->render('profile');
-    }
+
 
     public function profileWithId(Request $request)
     {

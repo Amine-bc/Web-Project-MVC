@@ -42,6 +42,6 @@ and sends you to do renouvelement)
 - change content of news in db.
 - go to ui home screen and add the effect of zoom on cards of events center them 
 - add zoom effect on page events
-- 
+- add address and number to form, and add to model 
 
 ---

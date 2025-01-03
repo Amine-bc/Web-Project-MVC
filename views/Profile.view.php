@@ -76,6 +76,7 @@
 </head>
 <body>
 <div class="profile-container">
+    <h1>Welcome <?php echo $user->name ?> ! </h1>
     <div class="profile-header">
         <div class="profile-photo">
             <img src="<?php echo "/images/data/profile_photo/".htmlspecialchars($user->profile_photo); ?>" alt="Profile Photo">
