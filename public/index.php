@@ -46,6 +46,7 @@ $app->router->post('/partners', [SiteController::class,'partners']);
 
 $app->router->get('/news', [SiteController::class,'news']);
 $app->router->get('/tablePartners', [PartnersController::class,'partnersTable']);
-$app->router->get('/profile', [SiteController::class,'profile']);
-
+$app->router->get('/profile', [UserController::class,'profile']);
+$app->router->get('/editProfile', [UserController::class,'editProfile']);
+$app->router->post('/editProfile', [UserController::class,'editProfile']);
 $app->run();

@@ -4,12 +4,21 @@ namespace app\controllers;
 
 use app\core\App;
 use app\core\Controller;
+use app\core\middlewares\AuthMiddleware;
 use app\core\Request;
+use app\core\Response;
 use app\core\Utils;
+use app\models\Donations;
+use app\models\SubscriptionPayments;
 use app\models\User;
+use app\models\Volunteering;
 
-class UserController extends Controller
-{
+class UserController extends Controller{
+        public function __construct()
+        {
+            $this->registerMiddleware(new AuthMiddleware(['profile']));
+            $this->registerMiddleware(new AuthMiddleware(['editProfile']));
+        }
 
     public function register(Request $request){
         $registerModel = new User();
@@ -61,17 +70,52 @@ class UserController extends Controller
             $model->addError('email', 'User does not exist with this email address');
             return false;
         }
+
         if (!password_verify($model->password, $user->password)) {
             $model->addError('password', 'Password is incorrect');
             return false;
         }
         return App::$app->login($user);
-    }
+
+}
 
     public function profile(Request $request){
         $userId = App::$app->session->get('user') ?? null;
         $user = User::findOneObject(['user_id' => $userId]);
-        return $this->render('profile', ['user'=>$user]);
-    }
+        $donations = DONATIONS::findOne(['user_id' => $userId]);
+        $subscriptions = SubscriptionPayments::findOne(['user_id' => $userId]);
+        $volunteering = Volunteering::findOne(['user_id' => $userId]);
+        return $this->render('profile', ['user'=>$user, 'donations'=> $donations, 'subscriptions'=>$subscriptions, 'volunteering'=>$volunteering]);
+}
+
+    public function editProfile(Request $request){
+        if ($request->isGet()) {
+
+            $userId = App::$app->session->get('user') ?? null;
+            $user = User::findOneObject(['user_id' => $userId]);
+
+            return $this->render('editProfile', ['user'=>$user]);
+
+        }elseif ($request->isPost()) {
+            $attributes = [];
+            $registerModel = new User();
+
+            foreach ($request->getBody() as $key => $value) {
+                    $attributes[$key] = $value ;
+            }
+           var_dump($attributes);
+            $userId = App::$app->session->get('user') ?? null;
+
+            var_dump($registerModel->validate_subset([],$attributes));
+            var_dump($registerModel->errors);
+
+            if ($registerModel->validate_subset([],$attributes) && $registerModel->updateRows($attributes, ['user_id' => $userId])) {
+                App::$app->session->setFlash('success', 'Thanks for registering');
+                var_dump($registerModel);
+                (new Response())->redirect('/profile');
+            }
+
+        }
+}
 
 }

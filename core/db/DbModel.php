@@ -41,6 +41,39 @@ abstract class DbModel extends Model
         return true;
     }
 
+    public function updateRows(array $attributes, array $conditions = [])
+    {
+        $tableName = $this->tableName();
+
+        // Generate SET clause for the update
+        $setClause = implode(", ", array_map(fn($attr) => "$attr = :$attr", array_keys($attributes)));
+
+        // Generate WHERE clause for the conditions (if provided)
+        $whereClause = "";
+        if (!empty($conditions)) {
+            $whereParts = array_map(fn($key) => "$key = :cond_$key", array_keys($conditions));
+            $whereClause = "WHERE " . implode(" AND ", $whereParts);
+        }
+
+        // Prepare the SQL statement
+        $sql = "UPDATE $tableName SET $setClause $whereClause";
+        $statement = self::prepare($sql);
+        // Bind values for SET clause
+        foreach ($attributes as $key => $value) {
+            $statement->bindValue(":$key", $value);
+        }
+
+        // Bind values for WHERE clause
+        foreach ($conditions as $key => $value) {
+            $statement->bindValue(":cond_$key", $value);
+        }
+
+        // Execute the statement
+        $statement->execute();
+        return true;
+    }
+
+
     public static function prepare($sql): \PDOStatement
     {
         return App::$app->db->prepare($sql);

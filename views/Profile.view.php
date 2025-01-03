@@ -5,6 +5,33 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Profile - <?php echo htmlspecialchars($user->name); ?></title>
     <style>
+        .vertical-container {
+            display: flex;
+            flex-direction: row; /* Align items vertically */
+            align-items: center; /* Center items horizontally */
+            justify-content: space-between; /* Center items vertically within the container */
+            text-align: center; /* Center the text inside the elements */
+        }
+
+        h1 {
+            margin-bottom: 20px; /* Add space below the heading */
+        }
+
+        .editProfileButton {
+            padding: 10px 20px; /* Add padding to the button */
+            font-size: 16px; /* Increase font size for readability */
+            cursor: pointer; /* Change cursor to pointer on hover */
+            border: none; /* Remove border */
+            background-color: #4CAF50; /* Green background color */
+            color: white; /* White text color */
+            border-radius: 5px; /* Rounded corners */
+            transition: background-color 0.3s; /* Smooth transition for background color change */
+        }
+
+        .editProfileButton:hover {
+            background-color: #45a049; /* Darker green on hover */
+        }
+
         body {
             font-family: Arial, sans-serif;
             margin: 0;
@@ -55,6 +82,7 @@
             display: flex;
             flex-wrap: wrap;
             gap: 20px;
+            margin-top: 20px;
         }
         .info-box {
             flex: 1 1 45%;
@@ -72,12 +100,37 @@
             margin: 5px 0;
             color: #555;
         }
+
+        ul {
+            list-style-type: none;
+            padding: 0;
+        }
+
+        li {
+            margin-bottom: 10px;
+            border-bottom: 1px solid #ddd;
+            padding-bottom: 10px;
+        }
+
+        .info-box h3 {
+            margin-bottom: 15px;
+        }
+
     </style>
 </head>
 <body>
 <div class="profile-container">
-    <h1>Welcome <?php echo $user->name ?> ! </h1>
-    <div class="profile-header">
+    <div class="vertical-container">
+
+        <h1>Welcome <?php echo $user->name ?> ! </h1>
+        <a href="/editProfile">
+            <button id="editProfileButton" class="editProfileButton">Edit Profile</button>
+        </a>
+
+
+
+    </div>
+       <div class="profile-header">
         <div class="profile-photo">
             <img src="<?php echo "/images/data/profile_photo/".htmlspecialchars($user->profile_photo); ?>" alt="Profile Photo">
         </div>
@@ -111,6 +164,65 @@
         </div>
 
     </div>
+    <div class="profile-info">
+        <!-- Donations Section -->
+        <div class="info-box">
+            <h3>Donations</h3>
+            <?php if (!empty($donations)): ?>
+                <ul>
+                    <?php foreach ($donations as $donation): ?>
+                        <li>
+                            <strong>Amount:</strong> <?php echo htmlspecialchars($donation['amount']); ?> DA<br>
+                            <strong>Date:</strong> <?php echo htmlspecialchars($donation['donation_date']); ?><br>
+                            <strong>Tracked:</strong> <?php echo $donation['is_tracked'] ? 'Yes' : 'No'; ?><br>
+                            <strong>Receipt:</strong> <a href="<?php echo "docs/receiptDonation/".htmlspecialchars($donation['payment_receipt']); ?>" target="_blank">View</a><br>
+
+                        </li>
+                    <?php endforeach; ?>
+                </ul>
+            <?php else: ?>
+                <p>No donations found.</p>
+            <?php endif; ?>
+        </div>
+
+        <!-- Subscription Payments Section -->
+        <div class="info-box">
+            <h3>Subscription Payments</h3>
+            <?php if (!empty($subscriptions)): ?>
+                <ul>
+                    <?php foreach ($subscriptions as $payment): ?>
+                        <li>
+                            <strong>Amount:</strong> <?php echo htmlspecialchars($payment['amount']); ?> DA<br>
+                            <strong>Status:</strong> <?php echo htmlspecialchars($payment['status']); ?><br>
+                            <strong>Date:</strong> <?php echo htmlspecialchars($payment['payment_date']); ?><br>
+                            <strong>Receipt:</strong> <a href="<?php echo "docs/receiptSubscription/".htmlspecialchars($payment['receipt_path']); ?>" target="_blank">View</a>
+                        </li>
+                    <?php endforeach; ?>
+                </ul>
+            <?php else: ?>
+                <p>No subscription payments found.</p>
+            <?php endif; ?>
+        </div>
+
+        <!-- Volunteering Activities Section -->
+        <div class="info-box">
+            <h3>Volunteering Activities</h3>
+            <?php if (!empty($volunteering)): ?>
+                <ul>
+                    <?php foreach ($volunteering as $activity): ?>
+                        <li>
+                            <strong>Event:</strong> <?php echo htmlspecialchars($activity['event_name']); ?><br>
+                            <strong>Description:</strong> <?php echo htmlspecialchars($activity['description']); ?><br>
+                            <strong>Date:</strong> <?php echo htmlspecialchars($activity['participation_date']); ?>
+                        </li>
+                    <?php endforeach; ?>
+                </ul>
+            <?php else: ?>
+                <p>No volunteering activities found.</p>
+            <?php endif; ?>
+        </div>
+    </div>
+
 </div>
 </body>
 </html>

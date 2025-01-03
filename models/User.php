@@ -91,8 +91,15 @@ class User extends UserModel
         return parent::save();
     }
 
+//    public function updateRows(array $attributes, array $conditions = []){
+//
+//
+//       return true;
+//    }
     public function getDisplayName(): string
     {
         return $this->name;
     }
+
+
 }

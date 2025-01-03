@@ -78,10 +78,10 @@ class SiteController extends Controller
         ]);
     }
 
-    public function profile(Request $request){
-        $usercontroller = new UserController();
-        return $usercontroller->profile($request);
-    }
+//    public function profile(Request $request){
+//        $usercontroller = new UserController();
+//        return $usercontroller->profile($request);
+//    }
 
     public function register(Request $request)
     {

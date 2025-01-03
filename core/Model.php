@@ -5,6 +5,8 @@ namespace app\core;
 
 
 
+use app\models\User;
+
 class Model
 {
     const RULE_REQUIRED = 'required';
@@ -44,7 +46,56 @@ class Model
     {
         return [];
     }
+    public function validate_subset($rules, $attributes)
+    {
 
+        $rules = [
+            'name' => [self::RULE_REQUIRED],
+            'email' => [self::RULE_REQUIRED, self::RULE_EMAIL, [
+                self::RULE_UNIQUE, 'class' => self::class
+            ]],
+        ];
+        foreach ($rules as $attribute=> $listOfRules) {
+            $value = $attributes[$attribute] ;
+            foreach ($listOfRules as $rule) {
+                $ruleName = $rule;
+                if (!is_string($rule)) {
+                    $ruleName = $rule[0];
+                }
+                if ($ruleName === self::RULE_REQUIRED && !$value) {
+                    $this->addErrorByRule($attribute, self::RULE_REQUIRED);
+                }
+                if ($ruleName === self::RULE_EMAIL && !filter_var($value, FILTER_VALIDATE_EMAIL)) {
+                    $this->addErrorByRule($attribute, self::RULE_EMAIL);
+                }
+                if ($ruleName === self::RULE_MIN && strlen($value) < $rule['min']) {
+                    $this->addErrorByRule($attribute, self::RULE_MIN, ['min' => $rule['min']]);
+                }
+                if ($ruleName === self::RULE_MAX && strlen($value) > $rule['max']) {
+                    $this->addErrorByRule($attribute, self::RULE_MAX);
+                }
+                if ($ruleName === self::RULE_MATCH && $value !== $this->{$rule['match']}) {
+                    $this->addErrorByRule($attribute, self::RULE_MATCH, ['match' => $rule['match']]);
+                }
+                if ($ruleName === self::RULE_UNIQUE) {
+                    $className = $rule['class'];
+                    $uniqueAttr = $rule['attribute'] ?? $attribute;
+                    $id = App::$app->session->get('user') ?? null;
+                    $tableName = User::tableName();
+                    $db = App::$app->db;
+                    $statement = $db->prepare("SELECT * FROM $tableName WHERE $uniqueAttr = :$uniqueAttr");
+                    $statement->bindValue(":$uniqueAttr", $value);
+                    $statement->execute();
+                    $record = $statement->fetchObject();
+                    if ($record && $record->user_id !== $id ) {
+                        $this->addErrorByRule($attribute, self::RULE_UNIQUE);
+                    }
+                }
+            }
+        }
+        return empty($this->errors);
+
+    }
     public function validate()
     {
         foreach ($this->rules() as $attribute => $rules) {
