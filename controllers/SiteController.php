@@ -13,6 +13,7 @@ use app\core\Controller;
 use app\core\middlewares\AuthMiddleware;
 use app\core\Request;
 use app\core\Response;
+use app\core\Utils;
 use app\models\LoginForm;
 use app\models\News;
 use app\models\Partners;
@@ -77,21 +78,10 @@ class SiteController extends Controller
 
     public function register(Request $request)
     {
-        $registerModel = new User();
-        if ($request->getMethod() === 'post') {
-            $registerModel->loadData($request->getBody());
-            if ($registerModel->validate() && $registerModel->save()) {
-                Application::$app->session->setFlash('success', 'Thanks for registering');
-                Application::$app->response->redirect('/');
-                return 'Show success page';
-            }
-
-        }
-        $this->setLayout('auth');
-        return $this->render('register', [
-            'model' => $registerModel
-        ]);
+        $userController = new UserController();
+       return $userController->register($request);
     }
+
 
     public function logout(Request $request, Response $response)
     {
@@ -117,27 +107,8 @@ class SiteController extends Controller
     }
 
     public function partners(Request $request){
-        $model = new Partners();
-        if($request->isGet()){
-            $filters = [] ;
-            $city = isset($_GET['city']) ? $_GET['city'] : '';
-            $category = isset($_GET['category']) ? $_GET['category'] : '';
-
-            if ($city) $filters['city'] = $city;
-            if ($category) $filters['category'] = $category;
-            $partners = [];
-            if(!isset($_SESSION['partners'])){
-                $model->setPartners();
-
-            }
-            $partners = $model->applyFilter($filters);
-
-            return $this->render('Partners',['partners'=>$partners]);
-        }
-        if($request->isPost()){
-            $model->setPartners();
-            return $this->render('Partners',['partners'=>$model->Partners]);
-        }
+        $partnersController = new PartnersController();
+        return $partnersController->partnersPage($request);
     }
 
     public function news(Request $request){

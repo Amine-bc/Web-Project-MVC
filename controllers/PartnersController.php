@@ -25,4 +25,28 @@ class PartnersController extends Controller
         }, $advantagesfromDb);
     return $this->render('partnersTable', ['advantages' => $advantages]);
     }
+
+    public function partnersPage(Request $request){
+        $model = new Partners();
+        if($request->isGet()){
+            $filters = [] ;
+            $city = isset($_GET['city']) ? $_GET['city'] : '';
+            $category = isset($_GET['category']) ? $_GET['category'] : '';
+
+            if ($city) $filters['city'] = $city;
+            if ($category) $filters['category'] = $category;
+            $partners = [];
+            if(!isset($_SESSION['partners'])){
+                $model->setPartners();
+
+            }
+            $partners = $model->applyFilter($filters);
+
+            return $this->render('Partners',['partners'=>$partners]);
+        }
+        if($request->isPost()){
+            $model->setPartners();
+            return $this->render('Partners',['partners'=>$model->Partners]);
+        }
+    }
 }

@@ -1,4 +1,3 @@
-
 <style>
     body {
         font-family: Arial, sans-serif;
@@ -50,6 +49,8 @@
     .btn-more:hover {
         background-color: #0056b3;
     }
+
+
 </style>
 
 
@@ -72,4 +73,3 @@
 
     <a href="/news" class="btn-more">See all news</a>
 </div>
-

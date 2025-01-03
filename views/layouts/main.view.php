@@ -17,7 +17,6 @@
             padding: 0;
             display: flex;
             flex-direction: column;
-            min-height: 100vh; /* Force the body to take up the full viewport height */
         }
 
         /* En-tête */
@@ -79,7 +78,10 @@
             color: white;
             text-align: center;
             padding: 10px 20px;
-
+            position: relative;
+            margin-top: auto;
+            bottom: 0;
+            width: 100%;
         }
 
         footer ul {
