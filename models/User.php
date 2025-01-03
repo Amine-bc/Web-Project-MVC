@@ -15,6 +15,8 @@ class User extends UserModel
     public ?string $phone = null;
     public ?string $address = null;
     public ?string $profile_photo = null;
+    public ?string $photo_identity = null;
+    public ?string $payment_proof = null;
     public ?string $subscription_type = null;
     public string $subscription_status = 'active'; // Default status
     public string $join_date = ''; // Will use default in DB
@@ -38,7 +40,9 @@ class User extends UserModel
             'subscription_type',
             'subscription_status',
             'join_date',
-            'expiration_date'
+            'expiration_date',
+            'photo_identity',
+            'payment_proof'
         ];
     }
 
