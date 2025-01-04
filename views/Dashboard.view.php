@@ -88,11 +88,18 @@
         <h2>Notifications</h2>
         <ul>
             <?php foreach ($notifications as $notification): ?>
-                <li><?php echo htmlspecialchars($notification); ?></li>
+                <li>
+                    <strong><?php echo htmlspecialchars($notification['title']); ?>:</strong>
+                    <?php echo htmlspecialchars($notification['content']); ?>
+                    <br>
+                    <small>
+                        <?php echo date('F j, Y, g:i A', strtotime($notification['send_date'])); ?>
+                        | Type: <span class="notification-type"><?php echo htmlspecialchars($notification['type']); ?></span>
+                    </small>
+                </li>
             <?php endforeach; ?>
         </ul>
     </div>
-
     <!-- Quick Access Buttons -->
     <div class="button-group">
         <a href="/discounts">View Discounts</a>

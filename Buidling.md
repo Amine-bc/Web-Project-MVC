@@ -16,7 +16,7 @@ and sends you to do renouvelement)
 - Un historique des dons, bénévolat, paiement et remises obtenus est disponible sur le profil.
 
 
-Page de Remises et Avantages (1 point)
+# Page de Remises et Avantages (1 point)
 
 o Cette page permet aux membres de visualiser toutes les remises et avantages qu’offre les
 partenaires de l’association, avec des filtres et tries.<br>
@@ -83,5 +83,6 @@ domaines.
 - add zoom effect on page events
 - add address and number to form, and add to model 
 - change diapo
-- solve the issue of ( post file is big in size ) in register form 
+- solve the issue of ( post file is big in size ) in register form
+
 ---

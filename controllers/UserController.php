@@ -9,6 +9,7 @@ use app\core\Request;
 use app\core\Response;
 use app\core\Utils;
 use app\models\Donations;
+use app\models\Notifications;
 use app\models\SubscriptionPayments;
 use app\models\User;
 use app\models\Volunteering;
@@ -120,7 +121,8 @@ public function dashboard()
 {
     $userId = App::$app->session->get('user') ?? null;
     $user = User::findOneObject(['user_id' => $userId]);
-    $notifications = ['notif1','notif2','notif3','notif4','notif5','notif6','notif7','notif8'];
+
+    $notifications = (new Notifications() )->findNotif($userId);
     return $this->render('dashboard',['user'=>$user,'notifications'=>$notifications]);
 }
 }
