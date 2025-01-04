@@ -51,5 +51,9 @@ $app->router->get('/editProfile', [UserController::class,'editProfile']);
 $app->router->post('/editProfile', [UserController::class,'editProfile']);
 
 $app->router->get('/dashboard',[UserController::class,'dashboard']);
+$app->router->get('/discount',[UserController::class,'discount']);
+$app->router->post('/discount',[UserController::class,'discount']);
+$app->router->get('/partnersUser',[UserController::class,'partnersUser']);
+
 
 $app->run();

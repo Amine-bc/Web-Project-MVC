@@ -11,12 +11,12 @@
 and sends you to do renouvelement) 
 
 
-  - sélectionner leurs partenaires favoris. 
+  - sélectionner leurs partenaires favoris.
 
 - Un historique des dons, bénévolat, paiement et remises obtenus est disponible sur le profil.
 
 
-# Page de Remises et Avantages (1 point)
+## Page de Remises et Avantages (1 point)
 
 o Cette page permet aux membres de visualiser toutes les remises et avantages qu’offre les
 partenaires de l’association, avec des filtres et tries.<br>

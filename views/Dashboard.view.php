@@ -102,9 +102,9 @@
     </div>
     <!-- Quick Access Buttons -->
     <div class="button-group">
-        <a href="/discounts">View Discounts</a>
+        <a href="/discount">View Discounts</a>
         <a href="/donations">Manage Donations</a>
-        <a href="/profile">Profile</a>
+        <a href="/partnersUser">Partners</a>
         <a href="/volunteering">Volunteer Opportunities</a>
     </div>
 </div>

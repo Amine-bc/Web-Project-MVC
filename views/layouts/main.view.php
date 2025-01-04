@@ -5,6 +5,9 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Association - Layout</title>
     <style>
+        * {
+            overflow-x: hidden; /* Prevent horizontal scrolling */
+        }
         html, body {
             height: 100%; /* Ensure the height is defined for root elements */
             margin: 0; /* Remove default margin */
@@ -13,8 +16,6 @@
         /* Styles généraux */
         body {
             font-family: Arial, sans-serif;
-            margin: 0;
-            padding: 0;
             display: flex;
             flex-direction: column;
         }

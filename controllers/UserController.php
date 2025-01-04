@@ -10,6 +10,7 @@ use app\core\Response;
 use app\core\Utils;
 use app\models\Donations;
 use app\models\Notifications;
+use app\models\Partners;
 use app\models\SubscriptionPayments;
 use app\models\User;
 use app\models\Volunteering;
@@ -90,7 +91,7 @@ class UserController extends Controller{
     public function editProfile(Request $request){
         if ($request->isGet()) {
 
-            $userId = App::$app->session->get('user') ?? null;
+            $userId = App::$app->user->user_id ;
             $user = User::findOneObject(['user_id' => $userId]);
 
             return $this->render('editProfile', ['user'=>$user]);
@@ -102,8 +103,7 @@ class UserController extends Controller{
             foreach ($request->getBody() as $key => $value) {
                     $attributes[$key] = $value ;
             }
-           var_dump($attributes);
-            $userId = App::$app->session->get('user') ?? null;
+            $userId = App::$app->user->user_id ;
 
             var_dump($registerModel->validate_subset([],$attributes));
             var_dump($registerModel->errors);
@@ -119,10 +119,52 @@ class UserController extends Controller{
 
 public function dashboard()
 {
-    $userId = App::$app->session->get('user') ?? null;
+    $userId = App::$app->user->user_id ;
+
     $user = User::findOneObject(['user_id' => $userId]);
 
     $notifications = (new Notifications() )->findNotif($userId);
     return $this->render('dashboard',['user'=>$user,'notifications'=>$notifications]);
+}
+
+public function discount($request){
+    $model = new Partners();
+
+    if($request->isPost()){
+        $SubType = 'reduction_' . lcfirst(App::$app->user->subscription_type);
+        $model->setPartners();
+        return $this->render('Discount',['partners'=>$model->Partners,'SubType'=>$SubType]);
+    }
+    if ($request->isGet()) {
+        $filters = [] ;
+        $city = isset($_GET['city']) ? $_GET['city'] : '';
+        $category = isset($_GET['category']) ? $_GET['category'] : '';
+
+        if ($city) $filters['city'] = $city;
+        if ($category) $filters['category'] = $category;
+        $partners = [];
+        if(!isset($_SESSION['partners'])){
+            $model->setPartners();
+
+        }
+        $partners = $model->applyFilter($filters);
+        $SubType = 'reduction_' . lcfirst(App::$app->user->subscription_type);
+        return $this->render('Discount',['partners'=>$partners,'SubType'=>$SubType]);
+    }
+}
+public function partnersUser(Request $request){
+    $advantagesfromDb = Partners::findAll();
+    $advantages = array_map(function ($item) {
+        return [
+            "name" => $item["name"],
+            "category" => $item["category"],
+            "city" => $item["city"],
+            "reduction" => $item["discount"],
+        ];
+    }, $advantagesfromDb);
+            return $this->render('partnersUser',['advantages'=>$advantages]);
+}
+public function volunteering(){
+
 }
 }

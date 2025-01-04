@@ -6,7 +6,7 @@ use app\core\UserModel;
 
 class User extends UserModel
 {
-    public int $user_id = 0; // Matches 'user_id' in the table
+    public int $user_id ; // Matches 'user_id' in the table
     public string $name = '';
     public string $email = '';
     public string $password = '';
