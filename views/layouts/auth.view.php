@@ -130,6 +130,7 @@
     <ul>
         <li><a href="/">Accueil</a></li>
         <li><a href="/profile">Profile</a></li>
+        <li><a href="/dashboard">Tableau de bord</a></li>
         <li><a class="right" href="/logout">se deconnecter</a></li>
 
     </ul>

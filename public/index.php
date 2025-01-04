@@ -49,4 +49,7 @@ $app->router->get('/tablePartners', [PartnersController::class,'partnersTable'])
 $app->router->get('/profile', [UserController::class,'profile']);
 $app->router->get('/editProfile', [UserController::class,'editProfile']);
 $app->router->post('/editProfile', [UserController::class,'editProfile']);
+
+$app->router->get('/dashboard',[UserController::class,'dashboard']);
+
 $app->run();

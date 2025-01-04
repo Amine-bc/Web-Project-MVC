@@ -62,9 +62,7 @@ class UserController extends Controller{
 
     }
     public function login(Request $request,$model){
-        var_dump($model);
         $user = User::findOneObject(['email' => $model->email]);
-        var_dump($user);
 
         if (!$user) {
             $model->addError('email', 'User does not exist with this email address');
@@ -118,4 +116,11 @@ class UserController extends Controller{
         }
 }
 
+public function dashboard()
+{
+    $userId = App::$app->session->get('user') ?? null;
+    $user = User::findOneObject(['user_id' => $userId]);
+    $notifications = ['notif1','notif2','notif3','notif4','notif5','notif6','notif7','notif8'];
+    return $this->render('dashboard',['user'=>$user,'notifications'=>$notifications]);
+}
 }
