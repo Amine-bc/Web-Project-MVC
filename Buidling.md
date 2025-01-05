@@ -84,5 +84,6 @@ domaines.
 - add address and number to form, and add to model 
 - change diapo
 - solve the issue of ( post file is big in size ) in register form
+- databse content in french please 
 
 ---

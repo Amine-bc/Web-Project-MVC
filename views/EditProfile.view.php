@@ -1,9 +1,9 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="fr">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Profile - <?php echo htmlspecialchars($user->name); ?></title>
+    <title>Profil - <?php echo htmlspecialchars($user->name); ?></title>
     <style>
         .vertical-container {
             display: flex;
@@ -146,7 +146,7 @@
         }
     </style>
     <style>
-        /* General Styles */
+        /* Styles généraux */
         body {
             font-family: Arial, sans-serif;
             margin: 0;
@@ -176,7 +176,7 @@
             font-weight: bold;
         }
 
-        /* Label Styles */
+        /* Styles des labels */
         label {
             display: block;
             margin-bottom: 8px;
@@ -184,7 +184,7 @@
             color: #555;
         }
 
-        /* Input Styles */
+        /* Styles des champs de saisie */
         input[type="text"],
         input[type="email"] {
             width: 100%;
@@ -203,7 +203,7 @@
             outline: none;
         }
 
-        /* Button Styles */
+        /* Styles des boutons */
         .form-button {
             padding: 12px 20px;
             background-color: #4CAF50;
@@ -220,7 +220,7 @@
             background-color: #45a049;
         }
 
-        /* Optional Responsive Design */
+        /* Conception responsive optionnelle */
         @media (max-width: 600px) {
             .profile-details {
                 margin: 10px;
@@ -233,34 +233,34 @@
 <body>
 <div class="profile-container">
     <div class="vertical-container">
-        <h1>Welcome <?php echo $user->name ?> !</h1>
-        <button id="editProfileButton" class="editProfileButton">Edit Profile</button>
+        <h1>Bienvenue <?php echo $user->name ?> !</h1>
+        <button id="editProfileButton" class="editProfileButton">Modifier le profil</button>
     </div>
 
-    <!-- Editable profile form -->
+    <!-- Formulaire de profil modifiable -->
     <div id="edit-profile-container" class="profile-header">
-        <!-- Here is the editable profile form -->
+        <!-- Voici le formulaire de profil modifiable -->
         <div class="profile-photo">
-            <img src="<?php echo "/images/data/profile_photo/".htmlspecialchars($user->profile_photo); ?>" alt="Profile Photo">
+            <img src="<?php echo "/images/data/profile_photo/".htmlspecialchars($user->profile_photo); ?>" alt="Photo de profil">
         </div>
         <form method="post" action="" id="profileEditForm" class="editProfileForm">
 
             <div class="profile-details">
                 <div class="info-box">
-                    <h3>Edit Personal Information</h3>
-                    <label for="name">Name</label>
+                    <h3>Modifier les informations personnelles</h3>
+                    <label for="name">Nom</label>
                     <input type="text" id="name" name="name" value="<?php echo htmlspecialchars($user->name); ?>" required>
 
                     <label for="email">Email</label>
                     <input type="email" id="email" name="email" value="<?php echo htmlspecialchars($user->email); ?>" required>
 
-                    <label for="phone">Phone</label>
+                    <label for="phone">Téléphone</label>
                     <input type="text" id="phone" name="phone" value="<?php echo htmlspecialchars($user->phone ?? ''); ?>" required>
 
-                    <label for="address">Address</label>
+                    <label for="address">Adresse</label>
                     <input type="text" id="address" name="address" value="<?php echo htmlspecialchars($user->address ?? ''); ?>" required>
 
-                    <button type="submit" class="form-button" >Save Changes</button>
+                    <button type="submit" class="form-button" >Enregistrer les modifications</button>
                 </div>
             </div>
         </form>
@@ -269,19 +269,19 @@
     <div class="profile-info">
 
         <div class="info-box">
-            <h3>Subscription</h3>
-            <p>Type: <?php echo htmlspecialchars($user->subscription_type); ?></p>
-            <p>Status: <?php echo htmlspecialchars($user->subscription_status); ?></p>
-            <p>Joined: <?php echo htmlspecialchars($user->join_date); ?></p>
-            <p>Expires: <?php echo htmlspecialchars($user->expiration_date); ?></p>
+            <h3>Abonnement</h3>
+            <p>Type : <?php echo htmlspecialchars($user->subscription_type); ?></p>
+            <p>Statut : <?php echo htmlspecialchars($user->subscription_status); ?></p>
+            <p>Rejoint : <?php echo htmlspecialchars($user->join_date); ?></p>
+            <p>Expire le : <?php echo htmlspecialchars($user->expiration_date); ?></p>
         </div>
         <div class="info-box">
-            <h3>Identity Photo</h3>
-            <img src="<?php echo "/images/data/photo_identity/".htmlspecialchars($user->photo_identity); ?>" alt="Identity Photo" style="width: 100%; border-radius: 5px;">
+            <h3>Photo d'identité</h3>
+            <img src="<?php echo "/images/data/photo_identity/".htmlspecialchars($user->photo_identity); ?>" alt="Photo d'identité" style="width: 100%; border-radius: 5px;">
         </div>
         <div class="info-box">
-            <h3>Payment Proof</h3>
-            <img src="<?php echo "/images/data/payment_proof/".htmlspecialchars($user->payment_proof); ?>" alt="Payment Proof" style="width: 100%; border-radius: 5px;">
+            <h3>Preuve de paiement</h3>
+            <img src="<?php echo "/images/data/payment_proof/".htmlspecialchars($user->payment_proof); ?>" alt="Preuve de paiement" style="width: 100%; border-radius: 5px;">
         </div>
     </div>
 </div>

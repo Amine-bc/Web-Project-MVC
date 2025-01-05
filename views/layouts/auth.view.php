@@ -8,6 +8,7 @@
         html, body {
             height: 100%; /* Ensure the height is defined for root elements */
             margin: 0; /* Remove default margin */
+            overflow-x: hidden; /* Prevent horizontal scrolling */
         }
 
         /* Styles généraux */

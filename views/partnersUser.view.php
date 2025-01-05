@@ -4,14 +4,11 @@
         align-content: center;
         justify-content: center;
         margin: 50px ;
-        padding: 50px 50px;
     }
     /* General table styling */
     #main-table {
 position: relative;
         width: 100%;
-        margin: 50px ;
-
         border-collapse: collapse;
         box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
         font-family: Arial, sans-serif;
@@ -88,7 +85,7 @@ position: relative;
 
 </style>
 
-<div id="container">
+<div class="container">
 
 <table id="main-table">
     <thead>
