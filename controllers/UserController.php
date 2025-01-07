@@ -82,9 +82,9 @@ class UserController extends Controller{
     public function profile(Request $request){
         $userId = App::$app->session->get('user') ?? null;
         $user = User::findOneObject(['user_id' => $userId]);
-        $donations = DONATIONS::findOne(['user_id' => $userId]);
-        $subscriptions = SubscriptionPayments::findOne(['user_id' => $userId]);
-        $volunteering = Volunteering::findOne(['user_id' => $userId]);
+        $donations = DONATIONS::findWhere(['user_id' => $userId]);
+        $subscriptions = SubscriptionPayments::findWhere(['user_id' => $userId]);
+        $volunteering = Volunteering::findWhere(['user_id' => $userId]);
         return $this->render('profile', ['user'=>$user, 'donations'=> $donations, 'subscriptions'=>$subscriptions, 'volunteering'=>$volunteering]);
 }
 
@@ -154,6 +154,7 @@ public function discount($request){
 }
 public function partnersUser(Request $request){
     $advantagesfromDb = Partners::findAll();
+    //TODO: change to find where ( create new method that does the find using many to many )
     $advantages = array_map(function ($item) {
         return [
             "name" => $item["name"],

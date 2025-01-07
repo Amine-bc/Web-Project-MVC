@@ -13,13 +13,6 @@ use app\core\Model;
 abstract class DbModel extends Model
 {
     abstract public static function tableName(): string;
-    public function findFirst($limit,$offset)
-    {
-        $tableName = static::tableName();
-        $statement = self::prepare("SELECT * FROM $tableName LIMIT $limit OFFSET $offset; ");
-        $statement->execute();
-        return $statement->fetchAll();
-    }
     public static function primaryKey(): string
     {
         return 'user_id';
@@ -79,7 +72,17 @@ abstract class DbModel extends Model
         return App::$app->db->prepare($sql);
     }
 
-    public static function findOne($where)
+    public static function findWhereinTable($where, $m2mTableName)
+    {
+        $tableName = static::tableName();
+        $attributes = array_keys($where);
+        // $sql = self::findWhere()
+        return ;
+        //todo: finish this function
+        // the idea is create model for the many to many so you can add here
+        // Partners_User.findWhere() then use result to do self::findWhere()
+    }
+    public static function findWhere($where): array
     {
         $tableName = static::tableName();
         $attributes = array_keys($where);
@@ -105,11 +108,17 @@ abstract class DbModel extends Model
 
     }
 
-
     public static function findAll()
     {
         $tableName = static::tableName();
         $statement = self::prepare("SELECT * FROM $tableName");
+        $statement->execute();
+        return $statement->fetchAll();
+    }
+    public function findFirst($limit,$offset)
+    {
+        $tableName = static::tableName();
+        $statement = self::prepare("SELECT * FROM $tableName LIMIT $limit OFFSET $offset; ");
         $statement->execute();
         return $statement->fetchAll();
     }

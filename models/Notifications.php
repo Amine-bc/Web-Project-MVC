@@ -12,7 +12,7 @@ class Notifications extends DbModel
         return 'notifications';
     }
     public function findNotif($userId){
-        $notifications = Notifications::findOne(['user_id' => $userId]);
+        $notifications = Notifications::findWhere(['user_id' => $userId]);
         return $notifications;
     }
 }
