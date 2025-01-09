@@ -7,6 +7,7 @@ use app\models\Partners;
 
 class PartnersController extends Controller
 {
+    //TODO: filters problem needs to be solved
     public function partnersTable(Request $request){
 
         $page  = 0 ;
@@ -25,6 +26,7 @@ class PartnersController extends Controller
         }, $advantagesfromDb);
     return $this->render('partnersTable', ['advantages' => $advantages]);
     }
+
 
     public function partnersPage(Request $request){
         $model = new Partners();

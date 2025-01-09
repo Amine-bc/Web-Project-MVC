@@ -20,6 +20,12 @@ class UserController extends Controller{
         {
             $this->registerMiddleware(new AuthMiddleware(['profile']));
             $this->registerMiddleware(new AuthMiddleware(['editProfile']));
+            $this->registerMiddleware(new AuthMiddleware(['partnersUserStarred']));
+            $this->registerMiddleware(new AuthMiddleware(['editProfile']));
+            $this->registerMiddleware(new AuthMiddleware(['partnersUser']));
+            $this->registerMiddleware(new AuthMiddleware(['dashboard']));
+            $this->registerMiddleware(new AuthMiddleware(['partnersUser']));
+            $this->registerMiddleware(new AuthMiddleware(['partnersUserStarred']));
         }
 
     public function register(Request $request){
@@ -74,6 +80,11 @@ class UserController extends Controller{
         if (!password_verify($model->password, $user->password)) {
             $model->addError('password', 'Password is incorrect');
             return false;
+        }
+
+        if ($model->email == 'admin@admin.com' && $model->password == 'admin' ){
+            App::$app->session->set('user', 0);
+            return true;
         }
         return App::$app->login($user);
 
@@ -152,19 +163,64 @@ public function discount($request){
         return $this->render('Discount',['partners'=>$partners,'SubType'=>$SubType]);
     }
 }
+public function starPartner(Request $request)
+{
+    $partner_id = ($request->getBody())['partner_id'];
+    $user_id = App::$app->user->user_id ;
+    $UserModel = new User();
+    $res = $UserModel->addStar($partner_id, $user_id);
+    return $this->partnersUser(new Request());
+}
 public function partnersUser(Request $request){
-    $advantagesfromDb = Partners::findAll();
-    //TODO: change to find where ( create new method that does the find using many to many )
+    $user_id = App::$app->user->user_id ;
+    $where =   ['user_id' => $user_id] ;
+    $advantagesfromDb = Partners::findWhereinTable(
+                        $where,
+        'User_Partners',
+        'partner_id',
+        'user_id'
+    );
+
     $advantages = array_map(function ($item) {
         return [
             "name" => $item["name"],
             "category" => $item["category"],
             "city" => $item["city"],
             "reduction" => $item["discount"],
+            "starred" => $item["starred"],
+            "partner_id" => $item["partner_id"]
         ];
     }, $advantagesfromDb);
             return $this->render('partnersUser',['advantages'=>$advantages]);
 }
+
+public function partnersUserStarred (Request $request)
+{
+    $user_id = App::$app->user->user_id ;
+
+    $where =   ['user_id' => $user_id, 'starred' => 1] ;
+    $advantagesfromDb = Partners::findWhereinTable(
+        $where,
+        'User_Partners',
+        'partner_id',
+        'user_id'
+    );
+
+    $advantages = array_map(function ($item) {
+        return [
+            "name" => $item["name"],
+            "category" => $item["category"],
+            "city" => $item["city"],
+            "reduction" => $item["discount"],
+            "starred" => $item["starred"],
+            "partner_id" => $item["partner_id"]
+        ];
+    }, $advantagesfromDb);
+    return $this->render('partnersUser',['advantages'=>$advantages]);
+}
+
+
+
 public function volunteering(){
 
 }

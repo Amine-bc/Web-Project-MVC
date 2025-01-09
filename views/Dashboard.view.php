@@ -104,6 +104,7 @@
         <a class="button-class"  href="/donations">Gérer les Dons</a>
         <a class="button-class"  href="/partnersUser">Partenaires</a>
         <a class="button-class"  href="/volunteering">Opportunités de Bénévolat</a>
+        <a class="button-class"  href="/card">Acheter Carte</a>
     </div>
 </div>
 </body>

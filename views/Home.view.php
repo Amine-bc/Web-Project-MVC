@@ -2,6 +2,37 @@
 
 
 <style>
+    /* Center the entire section */
+    .container-activities {
+        display: flex;
+        justify-content: center; /* Horizontally center the content */
+        align-items: center; /* Vertically center the content (optional) */
+        flex-direction: column; /* Ensure items stack vertically */
+        text-align: center; /* Center text inside the section */
+    }
+
+    /* Center individual elements inside the .activities */
+    .activities {
+        width: 100%;
+        max-width: 800px; /* Set a max width for the content */
+        margin: 0 auto; /* Center the container */
+    }
+
+    /* Optional: Style the button */
+    .btn-more {
+        display: inline-block;
+        margin-top: 20px;
+        padding: 10px 20px;
+        background-color: #007BFF; /* Adjust as needed */
+        color: white;
+        text-decoration: none;
+        border-radius: 5px;
+        text-align: center;
+    }
+
+    .btn-more:hover {
+        background-color: #0056b3; /* Adjust hover effect */
+    }
 
     #partners {
         padding: 30px 0;
@@ -277,18 +308,21 @@
 
 
     <!-- Section des nouvelles et activités -->
-    <section id="news-activities">
-        <h2>Nouvelles des Activités</h2>
+    <section id="news-activities" class="container-activities">
+        <div class="activities">
+            <h2>Nouvelles des Activités</h2>
 
-        <?php foreach ($news as $item): ?>
-            <div class="news-item">
-                <h3><?= htmlspecialchars($item['title'], ENT_QUOTES, 'UTF-8') ?></h3>
-                <img class="event-card" src="<?= htmlspecialchars($item['image_path'], ENT_QUOTES, 'UTF-8') ?>" alt="<?= htmlspecialchars($item['title'], ENT_QUOTES, 'UTF-8') ?>">
-                <p><?= htmlspecialchars($item['description'], ENT_QUOTES, 'UTF-8') ?></p>
-            </div>
-        <?php endforeach; ?>
+            <?php foreach ($news as $item): ?>
+                <div class="news-item">
+                    <h3><?= htmlspecialchars($item['title'], ENT_QUOTES, 'UTF-8') ?></h3>
+                    <img class="event-card" src="<?= htmlspecialchars($item['image_path'], ENT_QUOTES, 'UTF-8') ?>" alt="<?= htmlspecialchars($item['title'], ENT_QUOTES, 'UTF-8') ?>">
+                    <p><?= htmlspecialchars($item['description'], ENT_QUOTES, 'UTF-8') ?></p>
+                </div>
+            <?php endforeach; ?>
 
-        <a href="/news" class="btn-more">Voir toutes les nouvelles</a>
+            <a href="/news" class="btn-more">Voir toutes les nouvelles</a>
+        </div>
+
     </section>
 
     <?php

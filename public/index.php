@@ -3,6 +3,7 @@
 require_once __DIR__.'/../vendor/autoload.php';
 require_once '../core/App.php';
 
+use app\controllers\AdminController;
 use app\controllers\PartnersController;
 use app\controllers\SiteController;
 use app\controllers\UserController;
@@ -43,17 +44,24 @@ $app->router->get('/logout', [SiteController::class,'logout']);
 $app->router->get('/partners', [SiteController::class,'partners']);
 $app->router->post('/partners', [SiteController::class,'partners']);
 
-
 $app->router->get('/news', [SiteController::class,'news']);
 $app->router->get('/tablePartners', [PartnersController::class,'partnersTable']);
+
 $app->router->get('/profile', [UserController::class,'profile']);
 $app->router->get('/editProfile', [UserController::class,'editProfile']);
 $app->router->post('/editProfile', [UserController::class,'editProfile']);
 
 $app->router->get('/dashboard',[UserController::class,'dashboard']);
+
 $app->router->get('/discount',[UserController::class,'discount']);
 $app->router->post('/discount',[UserController::class,'discount']);
+
 $app->router->get('/partnersUser',[UserController::class,'partnersUser']);
+$app->router->post('/partnersUser',[UserController::class,'starPartner']);
+//$app->router->get('/partnersUserStarred',[UserController::class,'partnersUserStarred']);
+
+$app->router->get('/UserManage',[AdminController::class,'UserManage']);
 
 
 $app->run();
+

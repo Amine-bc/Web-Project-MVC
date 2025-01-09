@@ -3,6 +3,7 @@
 namespace app\models;
 
 use app\core\UserModel;
+use PDO;
 
 class User extends UserModel
 {
@@ -99,6 +100,29 @@ class User extends UserModel
     public function getDisplayName(): string
     {
         return $this->name;
+    }
+
+    public function addStar($partner_id, $user_id) {
+        // SQL query to insert or update the starred status for the specific user-partner combination
+        $sql = "
+    INSERT INTO User_Partners (user_id, partner_id, starred)
+    VALUES (:user_id, :partner_id, 1) 
+    ON DUPLICATE KEY UPDATE starred = IF(starred = 1, 0, 1)
+";
+
+        // Prepare the SQL statement
+        $statement = $this->prepare($sql);
+
+        // Bind the values to the placeholders in the query
+        $statement->bindValue(':user_id', $user_id, PDO::PARAM_INT);
+        $statement->bindValue(':partner_id', $partner_id, PDO::PARAM_INT);
+
+        // Execute the statement
+        if ($statement->execute()) {
+            return true;  // Return true if the operation was successful
+        } else {
+            return false;  // Return false if something went wrong
+        }
     }
 
 

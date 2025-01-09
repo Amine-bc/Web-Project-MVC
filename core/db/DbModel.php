@@ -9,6 +9,7 @@ namespace app\core\db;
 
 use app\core\App;
 use app\core\Model;
+use PDO;
 
 abstract class DbModel extends Model
 {
@@ -72,18 +73,44 @@ abstract class DbModel extends Model
         return App::$app->db->prepare($sql);
     }
 
-    public static function findWhereinTable($where, $m2mTableName)
+    public static function findWhereinTable(array $where, string $m2mTableName, string $joinColumn, string $filterColumn): array
     {
+        // Get the table name of the current model
         $tableName = static::tableName();
+
+        // Extract the column names from the $where condition
         $attributes = array_keys($where);
-        // $sql = self::findWhere()
-        return ;
-        //todo: finish this function
-        // the idea is create model for the many to many so you can add here
-        // Partners_User.findWhere() then use result to do self::findWhere()
+
+        // Create the WHERE clause dynamically
+        $sqlConditions = implode(" AND ", array_map(fn($attr) => "$m2mTableName.$attr = :$attr", $attributes));
+
+        // Construct the SQL query
+        $sql = "
+    SELECT $tableName.*, $m2mTableName.*
+    FROM $tableName
+     JOIN $m2mTableName 
+    WHERE $sqlConditions
+";
+
+
+        // Prepare the SQL statement
+        $statement = self::prepare($sql);
+
+        // Bind the values for the placeholders in the query
+        foreach ($where as $key => $value) {
+            $statement->bindValue(":$key", $value);
+        }
+
+        // Execute the query
+        $statement->execute();
+
+        // Fetch and return the results
+        return $statement->fetchAll(PDO::FETCH_ASSOC);
     }
+
     public static function findWhere($where): array
     {
+
         $tableName = static::tableName();
         $attributes = array_keys($where);
         $sql = implode(" AND ", array_map(fn($attr) => "$attr = :$attr", $attributes));

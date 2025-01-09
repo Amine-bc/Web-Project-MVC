@@ -52,6 +52,10 @@ class App
         return !self::$app->user;
     }
 
+    public static function isAdmin(){
+        return !self::$app->session->get('user') ?? null;
+    }
+
     public function login(UserModel $user)
     {
         $this->user = $user;

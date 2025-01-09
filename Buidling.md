@@ -53,6 +53,18 @@ partenaire, bénévolat et rappels de renouvellement de l’adhésion.<br>
 o Affiche des services de conseil et de formation disponibles pour les membres dans divers
 domaines.
 ---
+
+# Things that I passed and missed and need to add
+- change content of news in db.
+- go to ui home screen and add the effect of zoom on cards of events center them
+- add zoom effect on page events
+- add address and number to form, and add to model
+- change diapo
+- solve the issue of ( post file is big in size ) in register form
+- databse content in french please
+
+---
+
 # Done
 - the page news and the db that puts all the news
   - we need to create a simple data base for news
@@ -76,14 +88,3 @@ domaines.
     le compte du membre ce qui permet l’accès aux remises.) Done
 - create a profile page where "Les membres"
   - peuvent modifier leurs coordonnées".
----
-# Things that I passed and missed and need to add
-- change content of news in db.
-- go to ui home screen and add the effect of zoom on cards of events center them 
-- add zoom effect on page events
-- add address and number to form, and add to model 
-- change diapo
-- solve the issue of ( post file is big in size ) in register form
-- databse content in french please 
-
----

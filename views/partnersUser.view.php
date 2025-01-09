@@ -3,7 +3,13 @@
         display: flex;
         align-content: center;
         justify-content: center;
-        margin: 50px ;
+        margin: 10px 50px ;
+    }
+    .container-button{
+        display: flex;
+        align-content: center;
+        justify-content: center;
+        margin: 10px 0 ;
     }
     /* General table styling */
     #main-table {
@@ -35,6 +41,7 @@ position: relative;
 
     /* Button styling */
     .star-button {
+        text-decoration: none;
         background-color: #ffc107; /* Yellow color */
         color: #fff; /* White text */
         border: none;
@@ -76,17 +83,18 @@ position: relative;
             text-transform: capitalize;
         }
 
-        .star-button {
-            width: 100%;
-            text-align: center;
-        }
+
     }
 
 
 </style>
-
+<!--<div class="container-button">-->
+<!--    <a href="/partnersUserStarred" class="star-button">-->
+<!--        &#9734; Starred-->
+<!--    </a>-->
+<!--</div>-->
+<!---->
 <div class="container">
-
 <table id="main-table">
     <thead>
     <tr>
@@ -105,12 +113,24 @@ position: relative;
             <td><?php echo htmlspecialchars($advantage['name']); ?></td>
             <td><?php echo htmlspecialchars($advantage['reduction']); ?></td>
             <td>
-                <button class="star-button">
-                    &#9733; Star this partner
-                </button>
+                <form action="/partnersUser" method="POST">
+                    <!-- Hidden input for partner ID -->
+                    <input type="hidden" name="partner_id" value="<?php echo htmlspecialchars($advantage['partner_id']); ?>">
+
+                    <?php if ($advantage['starred'] == 0): ?>
+                        <!-- Button to star the partner -->
+                        <button type="submit" class="star-button">&#9734;</button>
+
+                    <?php else: ?>
+                        <!-- Button to unstar the partner -->
+                        <button type="submit" class="star-button">&#9733;</button>
+
+                    <?php endif; ?>
+                </form>
             </td>
         </tr>
     <?php endforeach; ?>
+
     </tbody>
 </table>
 
