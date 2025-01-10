@@ -98,9 +98,7 @@ class Router
             return $this->renderView($callback);
         }
         if (is_array($callback)) {
-            /**
-             * @var $controller \app\core\Controller
-             */
+
             $controller = new $callback[0];
             $controller->action = $callback[1];
             App::$app->controller = $controller;

@@ -1,21 +1,12 @@
 <?php
-/**
- * User: TheCodeholic
- * Date: 7/26/2020
- * Time: 3:49 PM
- */
+
 
 namespace app\core\form;
 
 
 use app\core\Model;
 
-/**
- * Class BaseField
- *
- * @author  Zura Sekhniashvili <zurasekhniashvili@gmail.com>
- * @package thecodeholic\phpmvc\form
- */
+
 abstract class BaseField
 {
 

@@ -1,19 +1,10 @@
 <?php
-/**
- * User: TheCodeholic
- * Date: 7/26/2020
- * Time: 3:49 PM
- */
+
 
 namespace app\core\form;
 
 
-/**
- * Class TextareaField
- *
- * @author  Zura Sekhniashvili <zurasekhniashvili@gmail.com>
- * @package thecodeholic\phpmvc\form
- */
+
 class TextareaField extends BaseField
 {
     public function renderInput()

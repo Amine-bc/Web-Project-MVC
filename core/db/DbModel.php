@@ -1,9 +1,5 @@
 <?php
-/**
- * User: TheCodeholic
- * Date: 7/10/2020
- * Time: 9:19 AM
- */
+
 
 namespace app\core\db;
 

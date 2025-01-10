@@ -15,5 +15,16 @@ class AdminController extends Controller
         $this->registerMiddleware(new AdminMiddleware(['CardManage']));
 
     }
+    public function UserManage($request)
+    {
 
+    }
+    public function PartnerManage($request)
+    {
+
+    }
+    public function CardManage($request)
+    {
+
+    }
 }
