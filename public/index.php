@@ -63,5 +63,11 @@ $app->router->post('/partnersUser',[UserController::class,'starPartner']);
 $app->router->get('/UserManage',[AdminController::class,'UserManage']);
 
 
+$app->router->get('/UserManage',[AdminController::class,'PartnerManage']);
+
+
+$app->router->get('/UserManage',[AdminController::class,'CardManage']);
+
+
 $app->run();
 
