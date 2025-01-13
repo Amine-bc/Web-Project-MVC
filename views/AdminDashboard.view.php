@@ -105,6 +105,8 @@
             <li><a href="/manageNotifications">Manage Notifications</a></li>
             <li><a href="/managePayments">Manage Payments & Subscriptions</a></li>
             <li><a href="/settings">Settings</a></li>
+            <li><a href="/logout">Logout</a></li>
+
         </ul>
     </div>
 
