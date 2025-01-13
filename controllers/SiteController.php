@@ -115,20 +115,39 @@ class SiteController extends Controller
     }
 
     public function news(Request $request){
-        $model = new News();
-        $newsfromdb = News::findAll();
-        // Example array of news items
-        $news = array_map(function ($item) {
-            return [
-                "id" => $item["id"],
-                "title" => $item["title"],
-                "description" => $item["description"],
-                "image_path" => $item["image_path"],
-                "created_at" => $item["created_at"],
-            ];
-        }, $newsfromdb);
-        return $this->render('News',['news'=>$news]);
+       if ($request->isGet()){
+           $newsfromdb = News::findAll();
+           // Example array of news items
+           $news = array_map(function ($item) {
+               return [
+                   "id" => $item["id"],
+                   "title" => $item["title"],
+                   "description" => $item["description"],
+                   "image_path" => $item["image_path"],
+                   "created_at" => $item["created_at"],
+               ];
+           }, $newsfromdb);
+           return $this->render('News',['news'=>$news]);
+       }
+
+       if ($request->isPost()){
+           $newsId = $request->getBody()['id'];
+           $newsfromdb = News::findWhere(['id'=>$newsId]);
+           $news = array_map(function ($item) {
+               return [
+                   "id" => $item["id"],
+                   "title" => $item["title"],
+                   "description" => $item["description"],
+                   'created_at' => $item["created_at"],
+                   'detailed_description' => $item["detailed_description"],
+               ];
+           },$newsfromdb);
+           return $this->render('New',['new'=>$news[0]]);
+       }
+
     }
+
+
 
     public function dons(Request $request){
         if($request->isGet()){

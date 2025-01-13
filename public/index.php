@@ -51,6 +51,9 @@ $app->router->get('/partners', [SiteController::class,'partners']);
 $app->router->post('/partners', [SiteController::class,'partners']);
 
 $app->router->get('/news', [SiteController::class,'news']);
+$app->router->post('/news', [SiteController::class,'news']);
+
+
 $app->router->get('/tablePartners', [PartnersController::class,'partnersTable']);
 
 $app->router->get('/profile', [UserController::class,'profile']);

@@ -50,10 +50,32 @@
         background-color: #0056b3;
     }
 
+    .btn-more {
+        display: inline-block;
+        margin-top: 20px;
+        padding: 12px 24px;
+        background-color: #28a745; /* Green background */
+        color: white;
+        text-decoration: none;
+        border-radius: 6px;
+        font-weight: bold;
+        font-size: 16px;
+        text-align: center;
+        transition: background-color 0.3s, transform 0.2s;
+    }
+
+    .btn-more:hover {
+        background-color: #218838; /* Darker green for hover */
+        transform: translateY(-2px); /* Slightly lift the button on hover */
+    }
+
+    .btn-more:active {
+        transform: translateY(1px); /* Button "press" effect */
+    }
+
+
 
 </style>
-
-
 
 <div class="container">
     <h2>Latest News</h2>
@@ -66,6 +88,11 @@
         echo '<div>';
         echo '<h3>' . htmlspecialchars($newsItem['title']) . '</h3>';
         echo '<p>' . htmlspecialchars($newsItem['description']) . '</p>';
+        // Form section - fixed syntax for PHP within HTML
+        echo '<form action="/news" method="POST">';
+        echo '<input type="hidden" name="id" value="' . htmlspecialchars($newsItem['id']) . '">';
+        echo '<button type="submit" class="btn-more">View Details</button>';
+        echo '</form>';
         echo '</div>';
         echo '</div>';
     }

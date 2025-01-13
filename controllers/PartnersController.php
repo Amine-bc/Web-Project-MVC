@@ -7,7 +7,6 @@ use app\models\Partners;
 
 class PartnersController extends Controller
 {
-    //TODO: filters problem needs to be solved
     public function partnersTable(Request $request){
 
         $page  = 0 ;
