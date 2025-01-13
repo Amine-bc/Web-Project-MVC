@@ -9,11 +9,17 @@ class AdminController extends Controller
 {
     public function __construct()
     {
-
+        $this->registerMiddleware(new AdminMiddleware(['AdminDashboard']));
         $this->registerMiddleware(new AdminMiddleware(['UserManage']));
         $this->registerMiddleware(new AdminMiddleware(['PartnersManage']));
         $this->registerMiddleware(new AdminMiddleware(['CardManage']));
 
+    }
+
+    public function adminDashboard()
+    {
+
+        return $this->renderViewOnly('AdminDashboard', []);
     }
     public function UserManage($request)
     {

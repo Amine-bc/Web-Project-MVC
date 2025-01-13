@@ -22,6 +22,10 @@ class Controller
     {
         return App::$app->router->renderView($view, $params);
     }
+    public function renderViewOnly($view, $params = []): string
+    {
+        return App::$app->view->renderViewOnly($view, $params);
+    }
 
     public function registerMiddleware(BaseMiddleware $middleware)
     {

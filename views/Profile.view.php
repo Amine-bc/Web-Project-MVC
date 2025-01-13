@@ -169,10 +169,12 @@
                 <ul>
                     <?php foreach ($donations as $donation): ?>
                         <li>
-                            <strong>Montant :</strong> <?php echo htmlspecialchars($donation['amount']); ?> DA<br>
-                            <strong>Date :</strong> <?php echo htmlspecialchars($donation['donation_date']); ?><br>
-                            <strong>Suivi :</strong> <?php echo $donation['is_tracked'] ? 'Oui' : 'Non'; ?><br>
-                            <strong>Reçu :</strong> <a href="<?php echo "docs/receiptDonation/".htmlspecialchars($donation['payment_receipt']); ?>" target="_blank">Voir</a><br>
+                            <strong>Montant :</strong> <?php echo htmlspecialchars($donation['required_amount']); ?> DA<br>
+                            <strong>Date :</strong> <?php echo htmlspecialchars($donation['last_update']); ?><br>
+                            <strong>Organisme</strong> <?php echo htmlspecialchars($donation['recipient_organization']); ?><br>
+
+                            <!--
+      <strong>Reçu :</strong> <a href="--><?php //echo "docs/receiptDonation/".htmlspecialchars($donation['payment_receipt']); ?><!--" target="_blank">Voir</a><br>-->
                         </li>
                     <?php endforeach; ?>
                 </ul>

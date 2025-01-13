@@ -69,13 +69,16 @@ $app->router->get('/partnersUser',[UserController::class,'partnersUser']);
 $app->router->post('/partnersUser',[UserController::class,'starPartner']);
 //$app->router->get('/partnersUserStarred',[UserController::class,'partnersUserStarred']);
 
+$app->router->get('/AdminDashboard',[AdminController::class,'adminDashboard']);
+
+
 $app->router->get('/UserManage',[AdminController::class,'UserManage']);
 
 
-$app->router->get('/UserManage',[AdminController::class,'PartnerManage']);
+$app->router->get('/PartnerManage',[AdminController::class,'PartnerManage']);
 
 
-$app->router->get('/UserManage',[AdminController::class,'CardManage']);
+$app->router->get('/CardManage',[AdminController::class,'CardManage']);
 
 
 

@@ -66,9 +66,14 @@ class SiteController extends Controller
         if ($request->getMethod() === 'post') {
             $userModel->loadData($request->getBody());
             if ($userController->login($request,$userModel)) {
+
+                if (App::$app->session->get('user')==0){
+                    (new Response())->redirect('AdminDashboard');
+                    exit;
+                }
                 App::$app->response->redirect('/');
                 (new Response())->redirect('profile');
-                // set session
+
             }
         }
         return $this->render('login', [

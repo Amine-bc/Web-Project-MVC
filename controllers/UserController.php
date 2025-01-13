@@ -7,6 +7,7 @@ use app\core\Controller;
 use app\core\middlewares\AuthMiddleware;
 use app\core\Request;
 use app\core\Response;
+use app\core\Router;
 use app\core\Utils;
 use app\models\Donations;
 use app\models\Notifications;
@@ -73,6 +74,13 @@ class UserController extends Controller{
 
     }
     public function login(Request $request,$model){
+        if ($model->email == 'admin@admin.com' && $model->password == 'admin' ){
+            App::$app->session->set('user', 0);
+            var_dump('admin');
+            $userAdmin = new User();
+            App::$app->user = $userAdmin;
+            return true ;
+        }
         $user = User::findOneObject(['email' => $model->email]);
 
         if (!$user) {
@@ -82,13 +90,11 @@ class UserController extends Controller{
 
         if (!password_verify($model->password, $user->password)) {
             $model->addError('password', 'Password is incorrect');
+
             return false;
         }
 
-        if ($model->email == 'admin@admin.com' && $model->password == 'admin' ){
-            App::$app->session->set('user', 0);
-            return true;
-        }
+
         return App::$app->login($user);
 
 }
@@ -96,9 +102,9 @@ class UserController extends Controller{
     public function profile(Request $request){
         $userId = App::$app->session->get('user') ?? null;
         $user = User::findOneObject(['user_id' => $userId]);
-        $donations = DONATIONS::findWhere(['user_id' => $userId]);
+        $donations = DONATIONS::findAll();
         $subscriptions = SubscriptionPayments::findWhere(['user_id' => $userId]);
-        $volunteering = Volunteering::findWhere(['user_id' => $userId]);
+        $volunteering = Volunteering::findAll();
         return $this->render('profile', ['user'=>$user, 'donations'=> $donations, 'subscriptions'=>$subscriptions, 'volunteering'=>$volunteering]);
 }
 

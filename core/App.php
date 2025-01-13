@@ -53,7 +53,8 @@ class App
     }
 
     public static function isAdmin(){
-        return !self::$app->session->get('user') ?? null;
+        return true ;
+        return self::$app->session->get('user') == 0 ?? false;
     }
 
     public function login(UserModel $user)
