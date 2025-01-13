@@ -16,8 +16,8 @@
         /* Styles généraux */
         body {
             font-family: Arial, sans-serif;
-            display: flex;
-            flex-direction: column;
+            background-color: #f9f9f9;
+            color: #333;
         }
 
         /* En-tête */
@@ -128,12 +128,11 @@
         <li><a href="/">Accueil</a></li>
         <li><a href="/partners">Partenaires</a></li>
         <li><a href="/news">Nouvelles</a></li>
-        <li><a href="/dons">Dons & Bénévolat</a></li>
+        <li><a href="/dons">Dons</a></li>
+        <li><a href="/benevolat">Bénévolat</a></li>
         <li><a href="/contact">Contact</a></li>
         <li><a href="/login">se connecter</a></li>
         <li><a href="/register">Rejoindre</a></li>
-
-
     </ul>
 </nav>
 
@@ -143,9 +142,9 @@
 <!-- Pied de page -->
 <footer>
     <ul>
-        <li><a href="#">Accueil</a></li>
-        <li><a href="#">Dons & Bénévolat</a></li>
-        <li><a href="#">Nous contacter</a></li>
+        <li><a href="/">Accueil</a></li>
+        <li><a href="/partners">Partenaires</a></li>
+        <li><a href="/contact">Nous contacter</a></li>
     </ul>
     <p>&copy; 2024 Al Barakah Global - Tous droits réservés</p>
 </footer>

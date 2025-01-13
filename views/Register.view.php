@@ -83,7 +83,6 @@
             <label>Reçu de Paiement:</label>
             <input type="file" name="payment_proof" accept="image/*,application/pdf" required>
 
-
             <button type="submit">S'inscrire</button>
         </form>
         <a href="/login">Déjà membre ? Se connecter</a>

@@ -1,15 +1,8 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Catalogue des Partenaires</title>
+
     <style>
         /* General Styles */
         body {
             font-family: Arial, sans-serif;
-            margin: 0;
-            padding: 0;
             background-color: #f9f9f9;
             color: #333;
         }
@@ -21,10 +14,10 @@
             color: #007BFF;
         }
 
-        .container {
+        .container_child {
             width: 90%;
             max-width: 1200px;
-            margin: 20px auto;
+            margin: 30px auto;
         }
 
         /* Filter Section */
@@ -131,12 +124,11 @@
             }
         }
     </style>
-</head>
-<body>
 
-<h1>Catalogue des Partenaires</h1>
 
-<div class="container">
+<div class="container_child">
+    <h1>Catalogue des Partenaires</h1>
+
     <!-- Filter Form -->
     <div class="filter-section">
         <select name="city" id="city-filter">
@@ -242,5 +234,4 @@
     });
 </script>
 
-</body>
-</html>
+

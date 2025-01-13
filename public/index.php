@@ -40,6 +40,9 @@ $app->router->post('/register', [SiteController::class,'register']);
 
 $app->router->get('/logout', [SiteController::class,'logout']);
 
+$app->router->get('/dons', [SiteController::class,'dons']);
+$app->router->get('/benevolat', [SiteController::class,'benevolat']);
+
 
 $app->router->get('/partners', [SiteController::class,'partners']);
 $app->router->post('/partners', [SiteController::class,'partners']);
@@ -67,6 +70,7 @@ $app->router->get('/UserManage',[AdminController::class,'PartnerManage']);
 
 
 $app->router->get('/UserManage',[AdminController::class,'CardManage']);
+
 
 
 $app->run();

@@ -52,11 +52,12 @@ class Utils
 // Directly output the QR code
        // header('Content-Type: '.$result->getMimeType());
        // echo $result->getString();
-
+        $hashed_string = hash('sha256', $text);
+        $return_path = $hashed_string.'.png' ;
 // Save it to a file
-        $result->saveToFile($path.'/qrcode.png');
+        $result->saveToFile($path.$return_path);
 
-
+return $return_path ;
 // Generate a data URI to include image data inline (i.e. inside an <img> tag)
       //  $dataUri = $result->getDataUri();
 

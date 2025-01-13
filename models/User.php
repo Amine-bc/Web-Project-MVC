@@ -14,6 +14,7 @@ class User extends UserModel
     public string $confirm_password = '';
     public string $role = 'member'; // Default role
     public ?string $phone = null;
+    public ?string $qr_code = '';
     public ?string $address = null;
     public ?string $profile_photo = null;
     public ?string $photo_identity = null;
@@ -43,7 +44,8 @@ class User extends UserModel
             'join_date',
             'expiration_date',
             'photo_identity',
-            'payment_proof'
+            'payment_proof',
+            'qr_code',
         ];
     }
 

@@ -34,6 +34,7 @@ class UserController extends Controller{
         if ($request->getMethod() === 'post') {
             // Load form data into the model
             $registerModel->loadData($request->getBody());
+
             // Handle file uploads for profile photo, if any
             $list = ['profile_photo','payment_proof','photo_identity'];
             foreach ($list as $item) {
@@ -51,10 +52,12 @@ class UserController extends Controller{
 
             // var_dump($registerModel->validate());
             // If validation passes and the user is saved successfully
-            if ($registerModel->validate() && $registerModel->save()) {
+            if ($registerModel->validate()) {
                 App::$app->session->setFlash('success', 'Thanks for registering');
                 $text = $registerModel->email ;
-                Utils::generateQRcode($text,App::$ROOT_DIR.'/public/images') ;
+                $path_qr = Utils::generateQRcode($text,App::$ROOT_DIR.'/public/images/data/qr_code/') ;
+                $registerModel->qr_code = $path_qr;
+                $registerModel->save() ;
                 return $this->render('WelcomeNewUser', [
                     'name' => $registerModel->name, 'email' => $registerModel->email, 'path' => '/images/qrcode.png'
                 ]);

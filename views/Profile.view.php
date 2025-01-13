@@ -154,6 +154,10 @@
             <img src="<?php echo "/images/data/photo_identity/".htmlspecialchars($user->photo_identity); ?>" alt="Photo d'Identité" style="width: 100%; border-radius: 5px;">
         </div>
         <div class="info-box">
+            <h3>Qr Code</h3>
+            <img src="<?php echo "/images/data/qr_code/".htmlspecialchars($user->qr_code); ?>" alt="Qr code" style="width: 100%; border-radius: 5px;">
+        </div>
+        <div class="info-box">
             <h3>Preuve de Paiement</h3>
             <img src="<?php echo "/images/data/payment_proof/".htmlspecialchars($user->payment_proof); ?>" alt="Preuve de Paiement" style="width: 100%; border-radius: 5px;">
         </div>
@@ -210,6 +214,10 @@
             <?php else: ?>
                 <p>Aucune activité de bénévolat trouvée.</p>
             <?php endif; ?>
+        </div>
+        <div class="info-box">
+            <h3>Cartes achetée</h3>
+            empty for now
         </div>
     </div>
 </div>
