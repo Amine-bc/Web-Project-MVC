@@ -1,3 +1,4 @@
+
 <style>
     body {
         font-family: 'Arial', sans-serif;
@@ -320,6 +321,16 @@
     }
 </style>
 
+<style>
+    /* Additional styling for image */
+    .card img {
+        max-width: 100%;
+        height: auto;
+        border-radius: 8px;
+        object-fit: cover;
+        margin-bottom: 15px;
+    }
+</style>
 
 <div class="container">
     <header class="header">
@@ -328,11 +339,10 @@
                 <svg class="heart-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
                     <path d="M20.84 4.61a5.5 5.5 0 0 0-7.78 0L12 5.67l-1.06-1.06a5.5 5.5 0 0 0-7.78 7.78l1.06 1.06L12 21.23l7.78-7.78 1.06-1.06a5.5 5.5 0 0 0 0-7.78z"></path>
                 </svg>
-
-                Donations List
+                Volunteering List
             </h1>
             <div class="search-container">
-                <input type="text" id="searchInput" placeholder="Search donations..." class="search-input">
+                <input type="text" id="searchInput" placeholder="Search volunteering..." class="search-input">
                 <svg class="search-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
                     <circle cx="11" cy="11" r="8"></circle>
                     <line x1="21" y1="21" x2="16.65" y2="16.65"></line>
@@ -345,70 +355,46 @@
         <table>
             <thead>
             <tr>
-                <th>ID & Recipient</th>
-                <th>Amount</th>
-                <th>Codes</th>
-                <th>Details</th>
-                <th>Contact</th>
-                <th>more details</th>
+                <th>Event</th>
+                <th>Description</th>
+                <th>Participation Date</th>
+                <th>Image</th>
+                <th>More Details</th>
             </tr>
             </thead>
             <tbody>
-            <?php if (!empty($dons)): ?>
-                <?php foreach ($dons as $don): ?>
+            <?php if (!empty($volunteering)): ?>
+                <?php foreach ($volunteering as $volunteer): ?>
                     <tr>
                         <td>
-                            <div class="id-recipient">
-                                <div class="donation-id"><?= htmlspecialchars($don['donation_id']) ?></div>
-                                <div class="recipient"><?= htmlspecialchars($don['recipient_need']) ?></div>
+                            <div class="event-name">
+                                <div class="event"><?= htmlspecialchars($volunteer['event_name']) ?></div>
                             </div>
                         </td>
                         <td>
-                            <div class="amount">
-                                $<?= htmlspecialchars(number_format($don['required_amount'], 2)) ?>
+                            <div class="description">
+                                <?= htmlspecialchars($volunteer['description']) ?>
                             </div>
                         </td>
                         <td>
-                            <div class="codes">
-                                <div>CIB: <?= htmlspecialchars($don['cib_code']) ?></div>
-                                <div>CCP: <?= htmlspecialchars($don['ccp_code']) ?></div>
+                            <div class="participation-date">
+                                <?= htmlspecialchars($volunteer['participation_date']) ?>
                             </div>
                         </td>
                         <td>
-                            <div class="details" title="<?= htmlspecialchars($don['assistance_details']) ?>">
-                                <?= htmlspecialchars($don['assistance_details']) ?>
-                            </div>
+                            <img src="/images/benevolat.jpeg" alt="Event Image" class="event-image" />
                         </td>
                         <td>
-                            <div class="contact">
-                                <div class="email">
-                                    <svg viewBox="0 0 24 24" class="icon" fill="none" stroke="currentColor" stroke-width="2">
-                                        <path d="M4 4h16c1.1 0 2 .9 2 2v12c0 1.1-.9 2-2 2H4c-1.1 0-2-.9-2-2V6c0-1.1.9-2 2-2z"></path>
-                                        <polyline points="22,6 12,13 2,6"></polyline>
-                                    </svg>
-                                    <?= htmlspecialchars($don['contact_email']) ?>
-                                </div>
-                                <div class="phone">
-                                    <svg viewBox="0 0 24 24" class="icon" fill="none" stroke="currentColor" stroke-width="2">
-                                        <path d="M22 16.92v3a2 2 0 0 1-2.18 2 19.79 19.79 0 0 1-8.63-3.07 19.5 19.5 0 0 1-6-6 19.79 19.79 0 0 1-3.07-8.67A2 2 0 0 1 4.11 2h3a2 2 0 0 1 2 1.72 12.84 12.84 0 0 0 .7 2.81 2 2 0 0 1-.45 2.11L8.09 9.91a16 16 0 0 0 6 6l1.27-1.27a2 2 0 0 1 2.11-.45 12.84 12.84 0 0 0 2.81.7A2 2 0 0 1 22 16.92z"></path>
-                                    </svg>
-                                    <?= htmlspecialchars($don['contact_phone']) ?>
-                                </div>
-                            </div>
-                        </td>
-                        <td>
-
-                            <form action="/dons" method="POST">
-                                <input type="hidden" name="donation_id" value="<?= htmlspecialchars($don['donation_id']) ?>">
+                            <form action="/benevolat" method="POST">
+                                <input type="hidden" name="volunteer_id" value="<?= htmlspecialchars($volunteer['volunteer_id']) ?>">
                                 <button type="submit" class="action-button">View Details</button>
                             </form>
-
                         </td>
                     </tr>
                 <?php endforeach; ?>
             <?php else: ?>
                 <tr>
-                    <td colspan="6" class="no-data">No donations found</td>
+                    <td colspan="5" class="no-data">No volunteering events found</td>
                 </tr>
             <?php endif; ?>
             </tbody>

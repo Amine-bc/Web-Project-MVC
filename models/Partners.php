@@ -22,11 +22,20 @@ class Partners extends DbModel
         }
         $filteredPartners = [] ;
         if(!empty($this->Partners) and !empty($filter)){
-            foreach($this->Partners as $partner){
-                foreach($filter as $field => $value){
-                    if($partner[$field] == $value){
-                        $filteredPartners[] = $partner;
+            foreach ($this->Partners as $partner) {
+                $matchesAllConditions = true; // Start by assuming the partner matches all conditions
+
+                foreach ($filter as $field => $value) {
+                    // If any condition is not met, set $matchesAllConditions to false and break the loop
+                    if ($partner[$field] != $value) {
+                        $matchesAllConditions = false;
+                        break; // No need to check the remaining conditions for this partner
                     }
+                }
+
+                // If all conditions matched, add the partner to the filtered list
+                if ($matchesAllConditions) {
+                    $filteredPartners[] = $partner;
                 }
             }
         }else{

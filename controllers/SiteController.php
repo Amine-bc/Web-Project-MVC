@@ -15,6 +15,7 @@ use app\models\LoginForm;
 use app\models\News;
 use app\models\Partners;
 use app\models\User;
+use app\models\Volunteering;
 
 class SiteController extends Controller
 {
@@ -130,30 +131,83 @@ class SiteController extends Controller
     }
 
     public function dons(Request $request){
-        $modelDon = new Donations();
-        $donsfromdb = Donations::findAll();
-        $dons = array_map(function ($item) {
-            return [
-                'donation_id' => $item['donation_id'],             // Unique ID of the donation
-                'recipient_need' => $item['recipient_need'],       // Purpose or need
-                'required_amount' => $item['required_amount'],     // Required donation amount
-                'cib_code' => $item['cib_code'],                  // CIB Code for fund transfer
-                'ccp_code' => $item['ccp_code'],                  // CCP Code for fund transfer
-                'assistance_details' => $item['assistance_details'], // Detailed description
-                'contact_email' => $item['contact_email'],        // Contact email for the donation
-                'contact_phone' => $item['contact_phone'],        // Contact phone number
-                'creation_date' => $item['creation_date'],        // When this record was created
-                'last_update' => $item['last_update'],
-                'short_description' => $item['short_description'],
-                // When this record was last updated
-            ];
-        }, $donsfromdb); // Assuming $data contains the fetched rows from the database
-        return $this->render('Dons',['dons'=>$dons]);
+        if($request->isGet()){
+
+            $modelDon = new Donations();
+            $donsfromdb = Donations::findAll();
+            $dons = array_map(function ($item) {
+                return [
+                    'donation_id' => $item['donation_id'],             // Unique ID of the donation
+                    'recipient_need' => $item['recipient_need'],       // Purpose or need
+                    'required_amount' => $item['required_amount'],     // Required donation amount
+                    'cib_code' => $item['cib_code'],                  // CIB Code for fund transfer
+                    'ccp_code' => $item['ccp_code'],                  // CCP Code for fund transfer
+                    'assistance_details' => $item['assistance_details'], // Detailed description
+                    'contact_email' => $item['contact_email'],        // Contact email for the donation
+                    'contact_phone' => $item['contact_phone'],        // Contact phone number
+                    'creation_date' => $item['creation_date'],        // When this record was created
+                    'last_update' => $item['last_update'],
+                    'short_description' => $item['short_description'],
+                    // When this record was last updated
+                ];
+            }, $donsfromdb); // Assuming $data contains the fetched rows from the database
+            return $this->render('Dons',['dons'=>$dons]);
+
+        }
+        if($request->isPost()){
+            $donId = $request->getBody()['donation_id'];
+            $donFromDb  = Donations::findWhere(['donation_id'=>$donId]);
+            $don = array_map(function ($item) {
+                return [
+                    'donation_id' => $item['donation_id'],             // Unique ID of the donation
+                    'recipient_need' => $item['recipient_need'],       // Purpose or need
+                    'required_amount' => $item['required_amount'],     // Required donation amount
+                    'cib_code' => $item['cib_code'],                  // CIB Code for fund transfer
+                    'ccp_code' => $item['ccp_code'],                  // CCP Code for fund transfer
+                    'assistance_details' => $item['assistance_details'], // Detailed description
+                    'contact_email' => $item['contact_email'],        // Contact email for the donation
+                    'contact_phone' => $item['contact_phone'],        // Contact phone number
+                    'creation_date' => $item['creation_date'],        // When this record was created
+                    'last_update' => $item['last_update'],
+                    'short_description' => $item['short_description'],
+                    // When this record was last updated
+                ];
+            }, $donFromDb);
+           return $this->render('Don',['don'=>$don[0]]);
+        }
+
     }
 
     public function benevolat(Request $request)
     {
+        if($request->isGet()){
+            $volunteerfromdb = Volunteering::findAll();
+            $volunteers = array_map(function ($item) {
+                return [
+                  'event_name' =>  $item['event_name'] ,
+                    'description' => $item['description'],
+                    'participation_date' => $item['participation_date'],
+                    'volunteer_id' => $item['volunteer_id'],
+                ];
+            }, $volunteerfromdb); // Assuming $data contains the fetched rows from the database
+            return $this->render('benevolats',['volunteering'=>$volunteers]);
+        }
+        if($request->isPost()){
+            $eventId = $request->getBody()['volunteer_id'];
+            var_dump($eventId);
+            $eventFromDb  = Volunteering::findWhere(['volunteer_id'=>$eventId]);
+            $event = array_map(function ($item) {
+                return [
+                    'event_name' =>  $item['event_name'] ,
+                    'description' => $item['description'],
+                    'participation_date' => $item['participation_date'],
+                    'volunteer_id' => $item['volunteer_id'],
+                ];
+            },$eventFromDb);
+                var_dump($event);
+                return $this->render('benevolat',['volunteer'=>$event[0]]);
 
+        }
     }
     public function newsPage(Request $request){
 

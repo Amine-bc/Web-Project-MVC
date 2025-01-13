@@ -7,25 +7,39 @@
     <style>
         * {
             overflow-x: hidden; /* Prevent horizontal scrolling */
+
         }
         html, body {
             height: 100%; /* Ensure the height is defined for root elements */
             margin: 0; /* Remove default margin */
         }
-
+.main{
+    padding: 3rem;
+    margin: 3rem;
+}
         /* Styles généraux */
         body {
             font-family: Arial, sans-serif;
-            background-color: #f9f9f9;
-            color: #333;
+            display: flex;
+            flex-direction: column;
         }
+       .top {
+            position: fixed;
+            top: 0;
+            width: 100%;
+            z-index: 1000;
+        }
+        main {
+            margin-top: 120px; /* Adjust this value to match the combined height of header and nav */
+        }
+
 
         /* En-tête */
         header {
             display: flex;
             justify-content: space-between;
             align-items: center;
-            padding: 0px 20px;
+            padding: 0 20px;
             background-color: #f4f4f4;
             border-bottom: 1px solid #ddd;
         }
@@ -81,6 +95,8 @@
             padding: 10px 20px;
             position: relative;
             margin-top: auto;
+            padding-bottom: 2rem;
+            padding-top: 1rem;
             bottom: 0;
             width: 100%;
         }
@@ -110,6 +126,9 @@
 </head>
 <body>
 <!-- En-tête -->
+
+<div class="top">
+
 <header>
 
     <div class="logo-container">
@@ -135,9 +154,11 @@
         <li><a href="/register">Rejoindre</a></li>
     </ul>
 </nav>
-
+</div>
 <!-- Zone de contenu dynamique -->
-      {{CONTENT}}
+<div class="main">
+    {{CONTENT}}
+</div>
 
 <!-- Pied de page -->
 <footer>
