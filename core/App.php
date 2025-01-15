@@ -10,7 +10,6 @@ class App
 {
     const EVENT_BEFORE_REQUEST = 'beforeRequest';
     const EVENT_AFTER_REQUEST = 'afterRequest';
-
     protected array $eventListeners = [];
 
     public static App $app;
@@ -28,6 +27,7 @@ class App
 
     public function __construct($rootDir, $config)
     {
+
         $this->session = new Session();
         $this->user = null;
         $this->userClass = $config['userClass'];
@@ -42,7 +42,10 @@ class App
         if ($userId && !self::isAdmin() && !self::isPartner()) {
             $this->layout = 'auth';
             $key = $this->userClass::primaryKey();
-            $this->user = $this->userClass::findOneObject([$key => $userId]);
+                $test = $this->userClass::findOneObject([$key => $userId]);
+
+            $this->user = $test;
+
         }
         //var_dump(App::$app->db->applyMigrations());
     }
@@ -53,12 +56,13 @@ class App
     }
 
     public static function isAdmin(){
-        return self::$app->session->get('user') == 0 ?? false;
+        return self::$app->session->get('role') == 'admin' ?? false;
     }
 
     public static function isPartner()
     {
-        return self::$app->session->get('user') == -1 ?? false;
+        return self::$app->session->get('role') == 'partner' ?? false;
+
     }
 
     public function login(UserModel $user)
@@ -75,7 +79,9 @@ class App
     public function logout()
     {
         $this->user = null;
+
         self::$app->session->remove('user');
+        self::$app->session->remove('role');
     }
 
     public function run()

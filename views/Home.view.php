@@ -209,20 +209,47 @@
 
     #news-activities h2 {
         margin-bottom: 15px;
+        text-align: center; /* Center the heading */
+    }
+
+    .activities {
+        display: grid;
+        grid-template-columns: repeat(auto-fill, minmax(300px, 1fr)); /* Creates a responsive grid */
+        gap: 20px;
+        justify-items: center;
     }
 
     .news-item {
-        margin-bottom: 30px;
+        background-color: white;
+        padding: 20px;
+        border-radius: 8px;
+        box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+        transition: transform 0.3s ease, box-shadow 0.3s ease;
+        text-align: center;
+    }
+
+    .news-item:hover {
+        transform: translateY(-5px);
+        box-shadow: 0 6px 15px rgba(0, 0, 0, 0.2);
     }
 
     .news-item h3 {
-        margin: 0;
+        margin: 0 0 10px;
         color: #333;
+        font-size: 20px;
     }
 
     .news-item p {
-        margin: 5px 0;
         color: #555;
+        margin-bottom: 15px;
+    }
+
+    .event-card {
+        width: 100%;
+        height: auto;
+        border-radius: 8px;
+        object-fit: cover; /* Ensures image is contained without stretching */
+        margin-bottom: 15px;
     }
 
     .btn-more {
@@ -233,12 +260,12 @@
         color: white;
         text-decoration: none;
         border-radius: 5px;
+        text-align: center;
     }
 
     .btn-more:hover {
         background-color: #0056b3;
     }
-
     /* Styles pour les partenaires */
     #partners {
         padding: 20px;
@@ -308,22 +335,24 @@
 
 
     <!-- Section des nouvelles et activités -->
-    <section id="news-activities" class="container-activities">
-        <div class="activities">
-            <h2>Nouvelles des Activités</h2>
 
+
+    <section id="news-activities" class="container-activities">
+        <h2>Nouvelles des Activités</h2>
+
+        <div class="activities">
             <?php foreach ($news as $item): ?>
                 <div class="news-item">
                     <h3><?= htmlspecialchars($item['title'], ENT_QUOTES, 'UTF-8') ?></h3>
                     <img class="event-card" src="<?= htmlspecialchars($item['image_path'], ENT_QUOTES, 'UTF-8') ?>" alt="<?= htmlspecialchars($item['title'], ENT_QUOTES, 'UTF-8') ?>">
                     <p><?= htmlspecialchars($item['description'], ENT_QUOTES, 'UTF-8') ?></p>
+                    <a href="/news" class="btn-more">Voir toutes les nouvelles</a>
                 </div>
             <?php endforeach; ?>
 
-            <a href="/news" class="btn-more">Voir toutes les nouvelles</a>
         </div>
-
     </section>
+
 
     <?php
     // Fetch the current page number from the query string (default to 1)

@@ -42,6 +42,7 @@ class AdminController extends Controller
         if( $hashedPassword == $passwordFromDb ){
             return true ;
         }
+        return false;
 
     }
 }

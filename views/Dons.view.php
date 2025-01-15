@@ -20,6 +20,7 @@
         cursor: pointer;
         transition: background-color 0.2s ease;
         text-align: center;
+
     }
 
     .action-button:hover {
@@ -234,7 +235,29 @@
     .recipient {
         color: var(--text-secondary);
     }
+    .centered-button h1 {
+        margin: 0; /* Remove default margin from <h1> */
+        font-size: 2rem; /* Adjust the font size */
+        text-align: center;
+    }
 
+    .centered-button a {
+        display: inline-block;
+        padding: 15px 30px;
+        background-color: #007BFF; /* Primary blue color */
+        color: white; /* White text */
+        text-decoration: none; /* Remove underline */
+        font-weight: bold; /* Make the text bold */
+        font-size: 1.2rem; /* Adjust font size for the link */
+        border-radius: 8px; /* Rounded corners */
+        box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1); /* Subtle shadow */
+        transition: background-color 0.3s, transform 0.2s; /* Add smooth hover effect */
+    }
+
+    .centered-button a:hover {
+        background-color: #0056b3; /* Darker blue on hover */
+        transform: translateY(-2px); /* Slightly lift the button */
+    }
     .amount {
         font-weight: 600;
         color: var(--primary-color);
@@ -264,7 +287,9 @@
         align-items: center;
         gap: 0.5rem;
     }
-
+    .centered-button {
+        text-align: center;
+    }
     .icon {
         width: 1rem;
         height: 1rem;
@@ -414,6 +439,14 @@
             </tbody>
         </table>
     </div>
+</div>
+
+<div class="centered-button">
+    <h1>
+        <a href="/AskDonation">
+            Ask Donation
+        </a>
+    </h1>
 </div>
 
 <script>

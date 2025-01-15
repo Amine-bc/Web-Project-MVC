@@ -127,5 +127,30 @@ class User extends UserModel
         }
     }
 
+    public function exists($partner_id) {
+        // SQL query to check if the combination exists
+        $sql = "
+        SELECT COUNT(*) as count 
+        FROM User_Partners 
+        WHERE user_id = :user_id AND partner_id = :partner_id";
+
+        // Prepare the SQL statement
+        $statement = $this->prepare($sql);
+
+        // Bind the values to the placeholders in the query
+        $statement->bindValue(':user_id', $this->user_id, PDO::PARAM_INT);
+        $statement->bindValue(':partner_id', $partner_id, PDO::PARAM_INT);
+
+        // Execute the statement
+        $statement->execute();
+
+        // Fetch the result
+        $result = $statement->fetch(PDO::FETCH_ASSOC);
+
+        // Return true if the combination exists, otherwise false
+        return $result['count'] > 0;
+    }
+
+
 
 }

@@ -1,101 +1,86 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Donation Case Details</title>
+ <title>Demande d'Aide</title>
     <style>
         body {
-            font-family: 'Arial', sans-serif;
-            background-color: #f9f9f9;
+            font-family: Arial, sans-serif;
             margin: 0;
-            padding: 0;
-        }
-        .container {
-            max-width: 1200px;
-            margin: 40px auto;
             padding: 20px;
+            background-color: #f4f4f4;
         }
+
         h1 {
             text-align: center;
-            color: #333333;
-            margin-bottom: 20px;
+            color: #333;
         }
-        .donation-details {
-            background-color: #ffffff;
-            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
-            border-radius: 8px;
-            overflow: hidden;
+
+        .form-container {
+            max-width: 600px;
+            margin: 0 auto;
             padding: 20px;
-            display: flex;
-            flex-direction: column;
-            align-items: center;
-        }
-        .donation-details h3 {
-            color: #4CAF50;
-            margin: 10px 0;
-        }
-        .donation-details img {
-            max-width: 100%;
-            height: auto;
+            background-color: #fff;
             border-radius: 8px;
-            object-fit: cover;
-            margin-bottom: 20px;
+            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
         }
-        .donation-details p {
-            color: #555555;
-            font-size: 14px;
-            margin: 10px 0;
-            text-align: left;
-            width: 100%;
-        }
-        .donation-details p span {
+
+        .form-container label {
             font-weight: bold;
-            color: #333333;
+            margin-top: 10px;
+            display: block;
         }
-        .back-button {
-            display: inline-block;
+
+        .form-container input,
+        .form-container select,
+        .form-container textarea {
+            width: 100%;
+            padding: 10px;
+            margin: 5px 0;
+            border: 1px solid #ccc;
+            border-radius: 4px;
+        }
+
+        .form-container button {
             background-color: #4CAF50;
             color: white;
             padding: 10px 20px;
-            text-decoration: none;
-            border-radius: 5px;
-            margin-top: 20px;
-            text-align: center;
+            border: none;
+            border-radius: 4px;
+            cursor: pointer;
+            margin-top: 10px;
+            width: 100%;
         }
-        .back-button:hover {
+
+        .form-container button:hover {
             background-color: #45a049;
         }
     </style>
-</head>
-<body>
 
-<div class="container">
-    <h1>Donation Case Details</h1>
+<h1>Demande d'Aide</h1>
 
-    <div class="donation-details">
-        <!-- Picture tag added for responsive image -->
-        <picture>
-            <source srcset="/images/donation_case_image.webp" type="image/webp">
-            <source srcset="/images/donation_case_image.jpg" type="image/jpeg">
-            <img src="/images/donation_case_image.jpg" alt="Donation Case Image">
-        </picture>
+<div class="form-container">
+    <form action="" method="POST" enctype="multipart/form-data">
+        <label for="name">Nom</label>
+        <input type="text" id="name" name="name" required>
 
-        <h3><?= htmlspecialchars($don['recipient_need']) ?></h3>
-        <p><span>Donation ID:</span> <?= htmlspecialchars($don['donation_id']) ?></p>
-        <p><span>Required Amount:</span> $<?= htmlspecialchars(number_format($don['required_amount'], 2)) ?></p>
-        <p><span>CIB Code:</span> <?= htmlspecialchars($don['cib_code']) ?></p>
-        <p><span>CCP Code:</span> <?= htmlspecialchars($don['ccp_code']) ?></p>
-        <p><span>Details:</span> <?= htmlspecialchars($don['assistance_details']) ?></p>
-        <p><span>Contact Email:</span> <?= htmlspecialchars($don['contact_email']) ?></p>
-        <p><span>Contact Phone:</span> <?= htmlspecialchars($don['contact_phone']) ?></p>
-        <p><span>Created On:</span> <?= htmlspecialchars($don['creation_date']) ?></p>
-        <p><span>Last Updated:</span> <?= htmlspecialchars($don['last_update']) ?></p>
+        <label for="surname">Prénom</label>
+        <input type="text" id="surname" name="surname" required>
 
-        <!-- Button to go back to the donations list -->
-        <a href="donations_list.php" class="back-button">Back to Donations List</a>
-    </div>
+        <label for="dob">Date de naissance</label>
+        <input type="date" id="dob" name="dob" required>
+
+        <label for="help_type">Type d'Aide</label>
+        <select id="help_type" name="help_type" required>
+            <option value="financière">Aide financière</option>
+            <option value="logement">Aide au logement</option>
+            <option value="santé">Aide en santé</option>
+            <option value="autre">Autre</option>
+        </select>
+
+        <label for="description">Description de la demande</label>
+        <textarea id="description" name="description" rows="4" required></textarea>
+
+        <label for="file">Envoyer un dossier </label>
+        <input type="file" id="file" name="file" accept="*" required>
+
+        <button type="submit">Envoyer la demande</button>
+    </form>
 </div>
 
-</body>
-</html>

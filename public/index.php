@@ -43,6 +43,9 @@ $app->router->get('/logout', [SiteController::class,'logout']);
 $app->router->get('/dons', [SiteController::class,'dons']);
 $app->router->post('/dons', [SiteController::class,'dons']);
 
+$app->router->get('/AskDonation', [SiteController::class,'AskDon']);
+$app->router->post('/AskDonation', [SiteController::class,'AskDon']);
+
 $app->router->get('/benevolat', [SiteController::class,'benevolat']);
 $app->router->post('/benevolat', [SiteController::class,'benevolat']);
 
@@ -53,6 +56,7 @@ $app->router->post('/partners', [SiteController::class,'partners']);
 $app->router->get('/news', [SiteController::class,'news']);
 $app->router->post('/news', [SiteController::class,'news']);
 
+$app->router->get('/Card',[UserController::class,'Card']);
 
 $app->router->get('/tablePartners', [PartnersController::class,'partnersTable']);
 
@@ -81,6 +85,13 @@ $app->router->get('/PartnerManage',[AdminController::class,'PartnerManage']);
 $app->router->get('/CardManage',[AdminController::class,'CardManage']);
 
 $app->router->get('/PartnerDashboard',[PartnersController::class,'PartnerDashboard']);
+
+$app->router->get('/CheckUsers',[PartnersController::class,'CheckUsers']);
+$app->router->get('/PartnerCard',[PartnersController::class,'PartnerCard']);
+
+
+$app->router->post('/CheckUsers',[PartnersController::class,'CheckUsers']);
+
 
 
 $app->run();

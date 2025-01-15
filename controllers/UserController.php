@@ -10,6 +10,7 @@ use app\core\Response;
 use app\core\Router;
 use app\core\Utils;
 use app\models\Admin;
+use app\models\Cards;
 use app\models\Donations;
 use app\models\Notifications;
 use app\models\Partners;
@@ -28,6 +29,8 @@ class UserController extends Controller{
             $this->registerMiddleware(new AuthMiddleware(['dashboard']));
             $this->registerMiddleware(new AuthMiddleware(['partnersUser']));
             $this->registerMiddleware(new AuthMiddleware(['partnersUserStarred']));
+            $this->registerMiddleware(new AuthMiddleware(['Card']));
+
         }
 
     public function register(Request $request){
@@ -77,17 +80,24 @@ class UserController extends Controller{
     public function login(Request $request,$model){
             $admin = Admin::findWhere(['email' => $model->email]);
             $adminController = new AdminController();
-        if ($adminController->login($admin, $request) ) {
-            App::$app->session->set('user', 0);
+
+        if ($admin && $adminController->login($admin, $request) ) {
+            App::$app->session->set('user', $admin[0]['id']);
+            App::$app->session->set('role', 'admin');
             $userAdmin = new User();
             App::$app->user = $userAdmin;
             return true ;
         }
+
         $user = User::findOneObject(['email' => $model->email]);
         $partner = Partners::findWhere(['email' => $model->email]);
+
         $partnerController = new PartnersController();
-        if( $partnerController->login($partner, $request) ) {
-            App::$app->session->set('user', -1);
+
+
+        if( $partner && $partnerController->login($partner, $request) ) {
+            App::$app->session->set('user', $partner[0]['partner_id']);
+            App::$app->session->set('role', 'partner');
             $user = new User();
             App::$app->user = $user;
             return true ;
@@ -96,14 +106,11 @@ class UserController extends Controller{
             $model->addError('email', 'User does not exist with this email address');
             return false;
         }
-
         if (!password_verify($model->password, $user->password)) {
             $model->addError('password', 'Password is incorrect');
 
             return false;
         }
-
-
         return App::$app->login($user);
 
 }
@@ -237,7 +244,10 @@ public function partnersUserStarred (Request $request)
     return $this->render('partnersUser',['advantages'=>$advantages]);
 }
 
-
+public function Card(){
+$cards = Cards::findAll();
+return $this->render('Cards',['cards'=>$cards]);
+}
 
 public function volunteering(){
 

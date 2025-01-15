@@ -1,16 +1,19 @@
 <?php
 namespace app\controllers;
 
+use app\core\App;
 use app\core\Controller;
 use app\core\middlewares\AuthMiddleware;
 use app\core\middlewares\PartnerMiddleware;
 use app\core\Request;
 use app\models\Partners;
+use app\models\User;
 
 class PartnersController extends Controller
 {
     public function __construct(){
-        $this->registerMiddleware( new PartnerMiddleware('PartnerDashboard') );
+
+
 
     }
     public function partnersTable(Request $request){
@@ -66,10 +69,51 @@ class PartnersController extends Controller
         if( $hashedPassword == $passwordFromDb ){
             return true ;
         }
+        return false;
 
     }
 
     public function PartnerDashboard(){
-        return $this->render('PartnerDashboard');
+        return $this->renderViewOnly('PartnerDashboard');
     }
+
+    public function partnerProfile(){
+        return $this->renderViewOnly('PartnerProfile');
+    }
+    public function PartnerCard(){
+        $partner_id = App::$app->session->get('user');
+        $partner = Partners::findWhere(['partner_id' => $partner_id]);
+        $partnerName = $partner[0]['name'];
+        return $this->renderViewOnly('PartnerCard', ['partnerName' => $partnerName]);
+    }
+    public function CheckUsers(Request $request){
+        if ($request->isGet()){
+
+            $this->renderViewOnly('PartnerDashboard');
+
+        }
+        if ($request->isPost()){
+            $email = $request->getBody()['email'];
+            $user = User::findOneObject(['email'=> $email ]);
+            $partner_id = App::$app->session->get('user');
+            $partner = Partners::findWhere(['partner_id' => $partner_id]);
+
+            echo json_encode([
+                'user' => [
+                    'name' => $user->name,
+                    'email' => $user->email,
+                    'phone' => $user->phone,
+               'subtype' => $user->subscription_type
+                 //   'subtype' =>'test'
+                ],
+                'partner' => [
+                 'name' => $partner[0]['reduction_'.lcfirst($user->subscription_type)],
+                ]
+            ]);
+            // if user not with them skip
+          //  $found = $user->exists( App::$app->session->get('user') );
+
+        }
+    }
+
 }

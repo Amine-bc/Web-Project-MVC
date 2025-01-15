@@ -13,7 +13,7 @@ class News extends DbModel
 
     public function findFirst($limit,$offset)
     {
-       return parent::findFirst(3,0) ;
+       return parent::findFirst(5,0) ;
     }
 
     public static function tableName(): string

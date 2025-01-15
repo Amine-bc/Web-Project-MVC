@@ -65,13 +65,21 @@ class SiteController extends Controller
         $userController = new UserController();
         if ($request->getMethod() === 'post') {
             $userModel->loadData($request->getBody());
+
+
             if ($userController->login($request,$userModel)) {
 
-                if (App::$app->session->get('user')==0){
+
+
+                if (App::isAdmin()){
                     (new Response())->redirect('AdminDashboard');
                     exit;
                 }
-                App::$app->response->redirect('/');
+                if (App::isPartner()){
+                    (new Response())->redirect('PartnerDashboard');
+                    exit;
+                }
+                App::$app->session->set('role','member') ;
                 (new Response())->redirect('profile');
 
             }
@@ -238,6 +246,20 @@ class SiteController extends Controller
     }
 
     public function partnersPage(Request $request){
+
+    }
+
+    public function AskDon (Request $request){
+        if($request->isGet()){
+          return   $this->render('DonationCase');
+        }
+        if($request->isPost()){
+
+            $dons = $request->getBody();
+
+            //TODO: add to db
+
+        }
 
     }
 
