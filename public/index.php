@@ -80,6 +80,7 @@ $app->router->get('/PartnerManage',[AdminController::class,'PartnerManage']);
 
 $app->router->get('/CardManage',[AdminController::class,'CardManage']);
 
+$app->router->get('/PartnerDashboard',[PartnersController::class,'PartnerDashboard']);
 
 
 $app->run();

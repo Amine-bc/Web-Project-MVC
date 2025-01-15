@@ -33,4 +33,15 @@ class AdminController extends Controller
     {
 
     }
+
+    public function login($admin,$request){
+
+        $passwordFromDb = $admin[0]['password'];
+        $password = $request->getBody()['password'];
+        $hashedPassword = hash("sha256", $password);
+        if( $hashedPassword == $passwordFromDb ){
+            return true ;
+        }
+
+    }
 }

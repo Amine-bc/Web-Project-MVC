@@ -9,6 +9,7 @@ use app\core\Request;
 use app\core\Response;
 use app\core\Router;
 use app\core\Utils;
+use app\models\Admin;
 use app\models\Donations;
 use app\models\Notifications;
 use app\models\Partners;
@@ -74,15 +75,23 @@ class UserController extends Controller{
 
     }
     public function login(Request $request,$model){
-        if ($model->email == 'admin@admin.com' && $model->password == 'admin' ){
+            $admin = Admin::findWhere(['email' => $model->email]);
+            $adminController = new AdminController();
+        if ($adminController->login($admin, $request) ) {
             App::$app->session->set('user', 0);
-            var_dump('admin');
             $userAdmin = new User();
             App::$app->user = $userAdmin;
             return true ;
         }
         $user = User::findOneObject(['email' => $model->email]);
-
+        $partner = Partners::findWhere(['email' => $model->email]);
+        $partnerController = new PartnersController();
+        if( $partnerController->login($partner, $request) ) {
+            App::$app->session->set('user', -1);
+            $user = new User();
+            App::$app->user = $user;
+            return true ;
+        }
         if (!$user) {
             $model->addError('email', 'User does not exist with this email address');
             return false;

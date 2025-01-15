@@ -39,7 +39,7 @@ class App
         $this->view = new View();
         $this->db = new Database($config['db']);
         $userId = App::$app->session->get('user') ?? null;
-        if ($userId) {
+        if ($userId && !self::isAdmin() && !self::isPartner()) {
             $this->layout = 'auth';
             $key = $this->userClass::primaryKey();
             $this->user = $this->userClass::findOneObject([$key => $userId]);
@@ -53,8 +53,12 @@ class App
     }
 
     public static function isAdmin(){
-        return true ;
         return self::$app->session->get('user') == 0 ?? false;
+    }
+
+    public static function isPartner()
+    {
+        return self::$app->session->get('user') == -1 ?? false;
     }
 
     public function login(UserModel $user)
