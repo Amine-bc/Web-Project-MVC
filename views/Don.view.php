@@ -142,8 +142,18 @@
             width: 100%;
         }
     }
+    .action-button {
+        background-color: #1d4ed8;
+        color: #ffffff;
+        border: none;
+        border-radius: 4px;
+        padding: 10px 15px;
+        font-size: 14px;
+        cursor: pointer;
+       }
 
-    @media (max-width: 480px) {
+
+        @media (max-width: 480px) {
         .donation-header h1 {
             font-size: 1.4rem;
         }
@@ -182,6 +192,9 @@
         <p><span>🕒 Last Updated:</span> <?= htmlspecialchars($don['last_update']) ?></p>
 
     </div>
-
+    <form action=<?php echo $getback ?> method="GET">
+        <input type="hidden" name="donation_id" value="<?= htmlspecialchars($don['donation_id']) ?>">
+        <button type="submit" class="action-button">Get back</button>
+    </form>
 
 </div>

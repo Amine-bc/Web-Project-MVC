@@ -13,6 +13,7 @@
 
         /* Styles généraux */
         body {
+            width: 100%;
             font-family: Arial, sans-serif;
             margin: 0;
             padding: 0;
@@ -54,8 +55,12 @@
             margin: 0;
             padding: 0;
             display: flex;
+            justify-content: flex-start;
+            width: 100%;
         }
-
+        .right {
+            margin-left: auto;
+        }
         nav ul li {
             padding: 15px 20px;
         }
@@ -105,10 +110,7 @@
         footer ul li a:hover {
             text-decoration: underline;
         }
-        .right{
-            position: absolute;
-            right: 10px;
-        }
+
     </style>
 
 </head>

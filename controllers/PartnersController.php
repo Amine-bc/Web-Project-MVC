@@ -6,6 +6,7 @@ use app\core\Controller;
 use app\core\middlewares\AuthMiddleware;
 use app\core\middlewares\PartnerMiddleware;
 use app\core\Request;
+use app\core\Utils;
 use app\models\Partners;
 use app\models\User;
 
@@ -81,10 +82,14 @@ class PartnersController extends Controller
         return $this->renderViewOnly('PartnerProfile');
     }
     public function PartnerCard(){
+        //TODO: generate qr code here
+
+
         $partner_id = App::$app->session->get('user');
         $partner = Partners::findWhere(['partner_id' => $partner_id]);
         $partnerName = $partner[0]['name'];
-        return $this->renderViewOnly('PartnerCard', ['partnerName' => $partnerName]);
+        $path_qr = "/images/data/qr_code/5b7c617c9eb680aabfe1b269a0e247900c8d431002d3f675713f872eee28d3e7.png" ;
+        return $this->renderViewOnly('PartnerCard', ['partnerName' => $partnerName, 'path_qr' => $path_qr]);
     }
     public function CheckUsers(Request $request){
         if ($request->isGet()){

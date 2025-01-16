@@ -221,7 +221,17 @@
     tr:last-child td {
         border-bottom: none;
     }
-
+    .info-box {
+        margin-bottom: 20px;
+        padding: 15px;
+        border: 1px solid #ddd;
+        border-radius: 8px;
+        background-color: #f9f9f9;
+    }
+    .info-box li {
+        margin-left: 3rem;
+        font-size: 18px;
+    }
     .id-recipient {
         display: flex;
         flex-direction: column;
@@ -343,7 +353,6 @@
             padding: 0.75rem;
         }
     }
-
     .centering {
         margin-top: 4rem;
         display: flex; /* Enables flexbox */
@@ -351,23 +360,10 @@
         align-items: center; /* Centers content vertically */
     }
 </style>
-<div class="centering">
-
-    <div class="centered-button">
-        <h1>
-            <a href="/AskDonation">
-                Ask Donation
-            </a>
-        </h1>
-    </div>
-
-</div>
-
 
 
 
 <div class="container">
-
     <header class="header">
         <div class="header-content">
             <h1>
@@ -444,7 +440,7 @@
                         </td>
                         <td>
 
-                            <form action="/dons" method="POST">
+                            <form action="/donsUser" method="POST">
                                 <input type="hidden" name="donation_id" value="<?= htmlspecialchars($don['donation_id']) ?>">
                                 <button type="submit" class="action-button">View Details</button>
                             </form>
@@ -463,7 +459,26 @@
 </div>
 
 
+<div class="info-box">
+    <h3>Historique Dons </h3>
+    <?php if (!empty($donations)): ?>
+        <ul>
+            <?php foreach ($donations as $donation): ?>
+                <li>
+                    <strong>Montant :</strong> <?php echo htmlspecialchars($donation['donated_amount']); ?> DA<br>
+                    <strong>Date :</strong> <?php echo htmlspecialchars($donation['donation_date']); ?><br>
+                    <strong>Organisme</strong> <?php echo htmlspecialchars($donation['recipient_organization']); ?><br>
+                    <strong>recipient_need</strong> <?php echo htmlspecialchars($donation['recipient_need']); ?><br>
 
+                    <!--
+<strong>Reçu :</strong> <a href="--><?php //echo "docs/receiptDonation/".htmlspecialchars($donation['payment_receipt']); ?><!--" target="_blank">Voir</a><br>-->
+                </li>
+            <?php endforeach; ?>
+        </ul>
+    <?php else: ?>
+        <p>Aucun don trouvé.</p>
+    <?php endif; ?>
+</div>
 <script>
     document.getElementById('searchInput').addEventListener('keyup', function() {
         const searchText = this.value.toLowerCase();

@@ -57,6 +57,7 @@ $app->router->get('/news', [SiteController::class,'news']);
 $app->router->post('/news', [SiteController::class,'news']);
 
 $app->router->get('/Card',[UserController::class,'Card']);
+$app->router->post('/Card',[UserController::class,'Card']);
 
 $app->router->get('/tablePartners', [PartnersController::class,'partnersTable']);
 
@@ -71,6 +72,12 @@ $app->router->post('/discount',[UserController::class,'discount']);
 
 $app->router->get('/partnersUser',[UserController::class,'partnersUser']);
 $app->router->post('/partnersUser',[UserController::class,'starPartner']);
+
+$app->router->get('/donsUser', [UserController::class,'dons']);
+$app->router->post('/donsUser', [UserController::class,'dons']);
+
+
+
 //$app->router->get('/partnersUserStarred',[UserController::class,'partnersUserStarred']);
 
 $app->router->get('/AdminDashboard',[AdminController::class,'adminDashboard']);

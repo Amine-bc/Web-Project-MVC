@@ -165,7 +165,6 @@ class SiteController extends Controller
     public function dons(Request $request){
         if($request->isGet()){
 
-            $modelDon = new Donations();
             $donsfromdb = Donations::findAll();
             $dons = array_map(function ($item) {
                 return [
@@ -205,7 +204,7 @@ class SiteController extends Controller
                     // When this record was last updated
                 ];
             }, $donFromDb);
-           return $this->render('Don',['don'=>$don[0]]);
+           return $this->render('Don',['don'=>$don[0],'getback'=> '/dons']);
         }
 
     }

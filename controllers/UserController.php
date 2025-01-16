@@ -124,6 +124,61 @@ class UserController extends Controller{
         return $this->render('profile', ['user'=>$user, 'donations'=> $donations, 'subscriptions'=>$subscriptions, 'volunteering'=>$volunteering]);
 }
 
+public function dashboard()
+    {
+        $userId = App::$app->user->user_id ;
+        $where = ['user_id' => $userId];
+        $user = User::findOneObject(['user_id' => $userId]);
+
+        $donationsfromDb = DONATIONS::findWhereinTableJoin(
+            $where,
+            'user_donation',
+            'donation_id',
+            'user_id'
+        );
+
+       $donations = array_map(function ($item) {
+           return [
+               "donated_amount" => $item["donated_amount"],
+               "donation_date" => $item["donation_date"],
+               "recipient_organization" => $item["recipient_organization"],
+               "recipient_need" => $item["recipient_need"],
+           ];
+       }, $donationsfromDb);
+
+
+
+       // $volunteering = Volunteering::findAll();
+
+
+        $volunteeringfromDb = Volunteering::findWhereinTableJoin(
+            $where,
+            'User_Volunteering',
+            'volunteer_id',
+            'user_id'
+        );
+
+        $volunteering = array_map(function ($item) {
+            return [
+             "event_name" => $item["event_name"],
+             "participation_date" => $item["participation_date"],
+                "description" => $item["description"],
+            ];
+        }, $volunteeringfromDb);
+
+
+
+
+
+        $subscriptions = SubscriptionPayments::findWhere(['user_id' => $userId]);
+        $notifications = (new Notifications() )->findNotif($userId);
+        return $this->render('dashboard',['user'=>$user,'notifications'=>$notifications,  'donations'=> $donations, 'subscriptions'=>$subscriptions, 'volunteering'=>$volunteering]);
+    }
+
+
+
+
+
     public function editProfile(Request $request){
         if ($request->isGet()) {
 
@@ -153,15 +208,7 @@ class UserController extends Controller{
         }
 }
 
-public function dashboard()
-{
-    $userId = App::$app->user->user_id ;
 
-    $user = User::findOneObject(['user_id' => $userId]);
-
-    $notifications = (new Notifications() )->findNotif($userId);
-    return $this->render('dashboard',['user'=>$user,'notifications'=>$notifications]);
-}
 
 public function discount($request){
     $model = new Partners();
@@ -207,11 +254,12 @@ public function partnersUser(Request $request){
     );
 
     $advantages = array_map(function ($item) {
+        $SubType = 'reduction_' . lcfirst(App::$app->user->subscription_type);
         return [
             "name" => $item["name"],
             "category" => $item["category"],
             "city" => $item["city"],
-            "reduction" => $item["discount"],
+            "reduction" => $item[$SubType] ??  $item['discount'] ,
             "starred" => $item["starred"],
             "partner_id" => $item["partner_id"]
         ];
@@ -244,9 +292,87 @@ public function partnersUserStarred (Request $request)
     return $this->render('partnersUser',['advantages'=>$advantages]);
 }
 
-public function Card(){
-$cards = Cards::findAll();
-return $this->render('Cards',['cards'=>$cards]);
+public function Card(Request $request){
+            if($request->isGet()){
+
+                $cards = Cards::findAll();
+                return $this->render('Cards',['cards'=>$cards]);
+            }
+
+            if($request->isPost()){
+                $newSub = $request->getBody()['subscription'];
+                $result = App::$app->user->changeSubscription($newSub);
+                (new Response())->redirect('/dashboard');
+            }
+}
+
+public function dons(Request $request)
+{
+    if($request->isGet()){
+        $user_id = App::$app->user->user_id ;
+        $where =   ['user_id' => $user_id] ;
+
+        $donationsfromDb = DONATIONS::findWhereinTableJoin(
+            $where,
+            'user_donation',
+            'donation_id',
+            'user_id'
+        );
+
+        $donations = array_map(function ($item) {
+            return [
+                "donated_amount" => $item["donated_amount"],
+                "donation_date" => $item["donation_date"],
+                "recipient_organization" => $item["recipient_organization"],
+                "recipient_need" => $item["recipient_need"],
+            ];
+        }, $donationsfromDb);
+
+
+        $donsfromdb = Donations::findAll();
+        $dons = array_map(function ($item) {
+            return [
+                'donation_id' => $item['donation_id'],             // Unique ID of the donation
+                'recipient_need' => $item['recipient_need'],       // Purpose or need
+                'required_amount' => $item['required_amount'],     // Required donation amount
+                'cib_code' => $item['cib_code'],                  // CIB Code for fund transfer
+                'ccp_code' => $item['ccp_code'],                  // CCP Code for fund transfer
+                'assistance_details' => $item['assistance_details'], // Detailed description
+                'contact_email' => $item['contact_email'],        // Contact email for the donation
+                'contact_phone' => $item['contact_phone'],        // Contact phone number
+                'creation_date' => $item['creation_date'],        // When this record was created
+                'last_update' => $item['last_update'],
+                'short_description' => $item['short_description'],
+                // When this record was last updated
+            ];
+        }, $donsfromdb); // Assuming $data contains the fetched rows from the database
+        return $this->render('DonsUser',['dons'=>$dons,'donations'=>$donations]);
+
+
+
+    }
+    if($request->isPost()){
+        $donId = $request->getBody()['donation_id'];
+        $donFromDb  = Donations::findWhere(['donation_id'=>$donId]);
+        $don = array_map(function ($item) {
+            return [
+                'donation_id' => $item['donation_id'],             // Unique ID of the donation
+                'recipient_need' => $item['recipient_need'],       // Purpose or need
+                'required_amount' => $item['required_amount'],     // Required donation amount
+                'cib_code' => $item['cib_code'],                  // CIB Code for fund transfer
+                'ccp_code' => $item['ccp_code'],                  // CCP Code for fund transfer
+                'assistance_details' => $item['assistance_details'], // Detailed description
+                'contact_email' => $item['contact_email'],        // Contact email for the donation
+                'contact_phone' => $item['contact_phone'],        // Contact phone number
+                'creation_date' => $item['creation_date'],        // When this record was created
+                'last_update' => $item['last_update'],
+                'short_description' => $item['short_description'],
+                // When this record was last updated
+            ];
+        }, $donFromDb);
+        return $this->render('Don',['don'=>$don[0],'getback'=> '/donsUser']);
+    }
+
 }
 
 public function volunteering(){

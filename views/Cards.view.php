@@ -137,9 +137,12 @@
                     <p class="price">$<?php echo number_format($card['price'], 2); ?> / <?php echo htmlspecialchars($card['duration']); ?></p>
                 </div>
                 <p class="description"><?php echo htmlspecialchars($card['description']); ?></p>
-                <button class="buy-button" onclick="window.location.href='buy_subscription.php?subscription=<?php echo urlencode($card['subscription_name']); ?>'">
-                    Buy Now
-                </button>
+                <form id="buyForm" method="POST" action="">
+                    <input type="hidden" name="subscription" value="<?= htmlspecialchars($card['subscription_name'], ENT_QUOTES, 'UTF-8') ?>">
+                    <button type="submit" class="buy-button">
+                        Buy Now
+                    </button>
+                </form>
             </div>
         <?php endforeach; ?>
     </div>

@@ -151,6 +151,25 @@ class User extends UserModel
         return $result['count'] > 0;
     }
 
+    public function changeSubscription($newSub) {
+        $sql = " UPDATE `Users`
+                SET `subscription_type` = :subscriptionType
+                WHERE `user_id` = :user_id;
+                " ;
+        $statement = $this->prepare($sql);
+
+
+        // Bind the values to the placeholders in the query
+        $statement->bindValue(':user_id', $this->user_id, PDO::PARAM_INT);
+        $statement->bindValue(':subscriptionType', $newSub, PDO::PARAM_STR_CHAR);
+
+
+
+
+        // Execute the statement
+        return $statement->execute();
+
+    }
 
 
 }

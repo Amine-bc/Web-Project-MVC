@@ -104,6 +104,41 @@ abstract class DbModel extends Model
         return $statement->fetchAll(PDO::FETCH_ASSOC);
     }
 
+    public static function findWhereinTableJoin(array $where, string $m2mTableName, string $joinColumn, string $filterColumn): array
+    {
+        // Get the table name of the current model
+        $tableName = static::tableName();
+
+        // Extract the column names from the $where condition
+        $attributes = array_keys($where);
+
+        // Create the WHERE clause dynamically
+        $sqlConditions = implode(" AND ", array_map(fn($attr) => "$m2mTableName.$attr = :$attr", $attributes));
+        // Construct the SQL query
+        $sql = "
+    SELECT $tableName.*, $m2mTableName.*
+    FROM $tableName
+     LEFT JOIN $m2mTableName on $m2mTableName.$joinColumn = $tableName.$joinColumn
+    WHERE $sqlConditions
+    ";
+
+
+        // Prepare the SQL statement
+        $statement = self::prepare($sql);
+
+        // Bind the values for the placeholders in the query
+        foreach ($where as $key => $value) {
+            $statement->bindValue(":$key", $value);
+        }
+
+        // Execute the query
+        $statement->execute();
+
+        // Fetch and return the results
+        return $statement->fetchAll(PDO::FETCH_ASSOC);
+    }
+
+
     public static function findWhere($where): array
     {
 

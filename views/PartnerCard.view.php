@@ -115,13 +115,20 @@
     .subscription-card {
         background-color: #fff;
         border-radius: 10px;
-        box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+        box-shadow: 0 10px 8px rgba(0, 0, 0, 0.5);
         width: 300px;
-        padding: 20px;
+        padding: 8px 55px;
         font-family: Arial, sans-serif;
         text-align: center;
+        border: 3px solid #ccc;
     }
-
+    img {
+        width: 100px;
+        height: 100px;
+        margin-top: 15px;
+        border-radius: 5px;
+        object-fit: cover;
+    }
     .profile {
         display: flex;
         align-items: center;
@@ -173,14 +180,14 @@
     </div>
 
     <div class="content">
-      This is partner Card
         <div class="subscription-card">
             <div class="profile">
-                <div class="profile-pic">😊</div>
-                <div class="username"> <?php echo $partnerName ?> </div>
+                <img src=<?php echo "".$path_qr ?>>
             </div>
+            <div class="username"> <?php echo $partnerName ?> </div>
+
             <div class="subscription-info">
-                <p><strong>Subscription Type:</strong> Premium</p>
+                <p><strong>Subscription Type:</strong> Partner</p>
                 <p><strong>Status:</strong> Active</p>
                 <p><strong>Benefits:</strong> Golden pack partner</p>
 

@@ -115,10 +115,60 @@
         .info-box h3 {
             margin-bottom: 15px;
         }
+
+        /*  here are the card styles  */
+
+        .user-card {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            text-align: center;
+            background: #fff;
+            padding: 10px 50px;
+            border-radius: 10px;
+            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+            max-width: 300px;
+            margin: 0 auto;
+        }
+
+        .card-logo img {
+            width: 50px;
+            height: 50px;
+            margin-bottom: 15px;
+        }
+
+        .card-details {
+            margin: 10px 0;
+        }
+
+        .card-details h2 {
+            font-size: 18px;
+            margin: 5px 0;
+            color: #333;
+        }
+
+        .card-details p {
+            font-size: 14px;
+            margin: 0;
+            color: #666;
+        }
+
+        .card-qr img {
+            width: 100px;
+            height: 100px;
+            margin-top: 15px;
+            border-radius: 5px;
+            object-fit: cover;
+        }
+
+
+        /*   here they end */
     </style>
 </head>
 <body>
 <div class="profile-container">
+
 
     <div class="vertical-container">
         <h1>Bienvenue <?php echo $user->name ?> ! </h1>
@@ -162,64 +212,22 @@
             <img src="<?php echo "/images/data/payment_proof/".htmlspecialchars($user->payment_proof); ?>" alt="Preuve de Paiement" style="width: 100%; border-radius: 5px;">
         </div>
     </div>
-    <div class="profile-info">
-        <div class="info-box">
-            <h3>Dons</h3>
-            <?php if (!empty($donations)): ?>
-                <ul>
-                    <?php foreach ($donations as $donation): ?>
-                        <li>
-                            <strong>Montant :</strong> <?php echo htmlspecialchars($donation['required_amount']); ?> DA<br>
-                            <strong>Date :</strong> <?php echo htmlspecialchars($donation['last_update']); ?><br>
-                            <strong>Organisme</strong> <?php echo htmlspecialchars($donation['recipient_organization']); ?><br>
 
-                            <!--
-      <strong>Reçu :</strong> <a href="--><?php //echo "docs/receiptDonation/".htmlspecialchars($donation['payment_receipt']); ?><!--" target="_blank">Voir</a><br>-->
-                        </li>
-                    <?php endforeach; ?>
-                </ul>
-            <?php else: ?>
-                <p>Aucun don trouvé.</p>
-            <?php endif; ?>
-        </div>
-
-        <div class="info-box">
-            <h3>Paiements d'Abonnement</h3>
-            <?php if (!empty($subscriptions)): ?>
-                <ul>
-                    <?php foreach ($subscriptions as $payment): ?>
-                        <li>
-                            <strong>Montant :</strong> <?php echo htmlspecialchars($payment['amount']); ?> DA<br>
-                            <strong>Statut :</strong> <?php echo htmlspecialchars($payment['status']); ?><br>
-                            <strong>Date :</strong> <?php echo htmlspecialchars($payment['payment_date']); ?><br>
-                            <strong>Reçu :</strong> <a href="<?php echo "docs/receiptSubscription/".htmlspecialchars($payment['receipt_path']); ?>" target="_blank">Voir</a>
-                        </li>
-                    <?php endforeach; ?>
-                </ul>
-            <?php else: ?>
-                <p>Aucun paiement d'abonnement trouvé.</p>
-            <?php endif; ?>
-        </div>
-
-        <div class="info-box">
-            <h3>Activités de Bénévolat</h3>
-            <?php if (!empty($volunteering)): ?>
-                <ul>
-                    <?php foreach ($volunteering as $activity): ?>
-                        <li>
-                            <strong>Événement :</strong> <?php echo htmlspecialchars($activity['event_name']); ?><br>
-                            <strong>Description :</strong> <?php echo htmlspecialchars($activity['description']); ?><br>
-                            <strong>Date :</strong> <?php echo htmlspecialchars($activity['participation_date']); ?>
-                        </li>
-                    <?php endforeach; ?>
-                </ul>
-            <?php else: ?>
-                <p>Aucune activité de bénévolat trouvée.</p>
-            <?php endif; ?>
-        </div>
         <div class="info-box">
             <h3>Cartes achetée</h3>
-            empty for now
+            <div class="user-card">
+
+                <div class="card-details">
+                    <h2><?php echo htmlspecialchars($user->name); ?></h2>
+                    <p><?php echo htmlspecialchars($user->email); ?></p>
+
+                </div>
+                <div class="card-qr">
+                    <img src="<?php echo "/images/data/qr_code/" . htmlspecialchars($user->qr_code); ?>" alt="QR Code">
+                </div>
+                <p><span style="font-weight: bold; font-size: 18px; margin: 0; color: #666;">Pack: <?php echo htmlspecialchars($user->subscription_type); ?></span></p>
+
+            </div>
         </div>
     </div>
 </div>
