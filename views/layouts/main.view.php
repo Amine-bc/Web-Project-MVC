@@ -146,6 +146,7 @@
     <ul>
         <li><a href="/">Accueil</a></li>
         <li><a href="/partners">Partenaires</a></li>
+        <li><a href="/advantages">Avantages</a></li>
         <li><a href="/news">Nouvelles</a></li>
         <li><a href="/dons">Dons</a></li>
         <li><a href="/benevolat">Bénévolat</a></li>

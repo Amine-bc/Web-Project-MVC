@@ -170,7 +170,8 @@
                             <h3><?= $partner['name'] ?></h3>
                             <p><strong>Ville:</strong> <?= $partner['city'] ?></p>
                             <p><strong>Remise:</strong> <?= $partner['discount'] ?></p>
-                            <a href="<?= $partner['details_link'] ?>">Voir Plus</a>
+
+                            <a href="#" onclick="viewPartner(event, <?php echo $partner['partner_id']?> )">Voir Plus</a>
                         </div>
                     <?php endforeach; ?>
                 </div>
@@ -179,7 +180,16 @@
     </div>
 </div>
 
+
 <script>
+    function viewPartner(event, partnerId) {
+        // Prevent the default behavior of the link
+        event.preventDefault();
+
+        // Redirect to the URL with the partner_id as a query parameter
+        const url = `/Partner?partner_id=${encodeURIComponent(partnerId)}`;
+        window.location.href = url;
+    }
     function updateCatalogue(city, category) {
         // Construct the query string
         const queryParams = new URLSearchParams();

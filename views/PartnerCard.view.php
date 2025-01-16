@@ -173,6 +173,8 @@
     <div class="sidebar">
         <h2>Partner Dashboard</h2>
         <ul>
+            <li><a href="/PartnerProfile">Partner Profile</a></li>
+
             <li><a href="/PartnerDashboard">Check Users</a></li>
             <li><a href="/PartnerCard">Partner Card</a></li>
             <li><a href="/logout">Logout</a></li>

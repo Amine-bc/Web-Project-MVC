@@ -49,9 +49,13 @@ $app->router->post('/AskDonation', [SiteController::class,'AskDon']);
 $app->router->get('/benevolat', [SiteController::class,'benevolat']);
 $app->router->post('/benevolat', [SiteController::class,'benevolat']);
 
+$app->router->get('/Partner', [SiteController::class,'partner']);
 
 $app->router->get('/partners', [SiteController::class,'partners']);
 $app->router->post('/partners', [SiteController::class,'partners']);
+
+$app->router->get('/advantages', [SiteController::class,'advantages']);
+
 
 $app->router->get('/news', [SiteController::class,'news']);
 $app->router->post('/news', [SiteController::class,'news']);
@@ -82,16 +86,20 @@ $app->router->post('/donsUser', [UserController::class,'dons']);
 
 $app->router->get('/AdminDashboard',[AdminController::class,'adminDashboard']);
 
+$app->router->get('/managePartners',[AdminController::class,'managePartners']);
+$app->router->get('/manageMembers',[AdminController::class,'manageMembers']);
+$app->router->get('/manageDonations',[AdminController::class,'manageDonations']);
+$app->router->get('/manageNotifications',[AdminController::class,'manageNotifications']);
+$app->router->get('/manageVolunteers',[AdminController::class,'manageVolunteers']);
+$app->router->get('/manageUsers',[AdminController::class,'manageUsers']);
+$app->router->get('/managePayments',[AdminController::class,'managePayments']);
+$app->router->get('/manageAdmin',[AdminController::class,'manageAdmin']);
 
-$app->router->get('/UserManage',[AdminController::class,'UserManage']);
 
-
-$app->router->get('/PartnerManage',[AdminController::class,'PartnerManage']);
-
-
-$app->router->get('/CardManage',[AdminController::class,'CardManage']);
 
 $app->router->get('/PartnerDashboard',[PartnersController::class,'PartnerDashboard']);
+
+$app->router->get('/PartnerProfile',[PartnersController::class,'PartnerProfile']);
 
 $app->router->get('/CheckUsers',[PartnersController::class,'CheckUsers']);
 $app->router->get('/PartnerCard',[PartnersController::class,'PartnerCard']);
@@ -99,7 +107,10 @@ $app->router->get('/PartnerCard',[PartnersController::class,'PartnerCard']);
 
 $app->router->post('/CheckUsers',[PartnersController::class,'CheckUsers']);
 
+$app->router->post('/CheckUsers',[PartnersController::class,'CheckUsers']);
 
 
 $app->run();
+
+
 

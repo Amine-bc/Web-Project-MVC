@@ -58,6 +58,27 @@ class SiteController extends Controller
         ]);
     }
 
+
+    public function advantages(Request $request){
+        if ($request->isGet()){
+            $advantagesfromDb = Partners::findAll();
+            $advantages = array_map(function ($item) {
+                return [
+                    "name" => $item["name"],
+                    "category" => $item["category"],
+                    "city" => $item["city"],
+                    "reduction" => $item["discount"],
+                    "reduction_jeunes" => $item["reduction_jeunes"],
+                    "reduction_classique" => $item["reduction_classique"],
+                    "reduction_premium" => $item["reduction_premium"],
+                ];
+            }, $advantagesfromDb);
+
+            return $this->render('advantages', ['advantages' => $advantages]);
+
+        }
+    }
+
     public function login(Request $request)
     {
         //var_dump($request->getBody(), $request->getRouteParam('id'));
@@ -125,6 +146,11 @@ class SiteController extends Controller
     public function partners(Request $request){
         $partnersController = new PartnersController();
         return $partnersController->partnersPage($request);
+    }
+
+    public function partner(Request $request){
+        $partner = Partners::findWhere(['partner_id'=>$request->getBody()['partner_id']]);
+        return $this->render('Partner', ['partner' => $partner]);
     }
 
     public function news(Request $request){

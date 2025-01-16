@@ -52,7 +52,6 @@ class PartnersController extends Controller
 
             }
             $partners = $model->applyFilter($filters);
-
             return $this->render('Partners',['partners'=>$partners]);
         }
         if($request->isPost()){
@@ -73,14 +72,16 @@ class PartnersController extends Controller
         return false;
 
     }
-
+public function PartnerProfile(){
+        $partner_id = App::$app->session->get("user");
+        $partner = Partners::findWhere(['partner_id' => $partner_id]);
+        return $this->renderViewOnly('PartnerProfile',['partner'=>$partner]);
+}
     public function PartnerDashboard(){
         return $this->renderViewOnly('PartnerDashboard');
     }
 
-    public function partnerProfile(){
-        return $this->renderViewOnly('PartnerProfile');
-    }
+
     public function PartnerCard(){
         //TODO: generate qr code here
 
