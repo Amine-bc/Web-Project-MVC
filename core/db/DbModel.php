@@ -30,6 +30,28 @@ abstract class DbModel extends Model
         $statement->execute();
         return true;
     }
+    public function insertRow(array $attributes)
+    {
+        $tableName = $this->tableName();
+
+        // Generate columns and values placeholders for the insert statement
+        $columns = implode(", ", array_keys($attributes));
+        $placeholders = implode(", ", array_map(fn($attr) => ":$attr", array_keys($attributes)));
+
+        // Prepare the SQL statement
+        $sql = "INSERT INTO $tableName ($columns) VALUES ($placeholders)";
+        $statement = self::prepare($sql);
+
+        // Bind values for the insert statement
+        foreach ($attributes as $key => $value) {
+            $statement->bindValue(":$key", $value);
+        }
+
+
+        // Return the last inserted ID (or true if you don't need it)
+        return  $statement->execute();
+
+    }
 
     public function updateRows(array $attributes, array $conditions = [])
     {
@@ -138,6 +160,51 @@ abstract class DbModel extends Model
         return $statement->fetchAll(PDO::FETCH_ASSOC);
     }
 
+    public static function delete($id)
+    {
+        // Ensure the ID is valid
+        if (empty($id)) {
+            throw new InvalidArgumentException("ID cannot be empty");
+        }
+
+        // Get the table name
+        $tableName = static::tableName();
+
+        // Retrieve the primary key column dynamically
+        $primaryKeyColumn = self::getPrimaryKeyColumn($tableName);
+
+        // Prepare the DELETE SQL query
+        $sql = "DELETE FROM $tableName WHERE $primaryKeyColumn = :id";
+
+        // Prepare the statement
+        $statement = self::prepare($sql);
+
+        // Bind the ID value to the query
+        $statement->bindValue(":id", $id);
+
+        // Execute the query and check if the deletion was successful
+        if ($statement->execute()) {
+            return true; // Deletion was successful
+        } else {
+            return false; // Something went wrong
+        }
+    }
+    public static function getPrimaryKeyColumn($tableName)
+    {
+        // Prepare the SQL query to get the primary key column from the information schema
+        $sql = "SELECT COLUMN_NAME
+            FROM information_schema.key_column_usage
+            WHERE table_name = :table_name AND constraint_name = 'PRIMARY'";
+
+        // Prepare and execute the query
+        $statement = self::prepare($sql);
+        $statement->bindValue(":table_name", $tableName);
+        $statement->execute();
+
+        // Fetch the result (primary key column name)
+        $result = $statement->fetch(PDO::FETCH_ASSOC);
+        return $result ? $result['COLUMN_NAME'] : null;
+    }
 
     public static function findWhere($where): array
     {

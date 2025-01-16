@@ -5,7 +5,7 @@ namespace app\core;
 
 
 
-use app\models\User;
+use app\models\Users;
 
 class Model
 {
@@ -81,7 +81,7 @@ class Model
                     $className = $rule['class'];
                     $uniqueAttr = $rule['attribute'] ?? $attribute;
                     $id = App::$app->session->get('user') ?? null;
-                    $tableName = User::tableName();
+                    $tableName = Users::tableName();
                     $db = App::$app->db;
                     $statement = $db->prepare("SELECT * FROM $tableName WHERE $uniqueAttr = :$uniqueAttr");
                     $statement->bindValue(":$uniqueAttr", $value);

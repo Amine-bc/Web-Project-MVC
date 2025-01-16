@@ -8,12 +8,12 @@ use app\controllers\PartnersController;
 use app\controllers\SiteController;
 use app\controllers\UserController;
 use app\core\App ;
-use app\models\User;
+use app\models\Users;
 
 $dotenv = \Dotenv\Dotenv::createImmutable(dirname(__DIR__));
 $dotenv->load();
 $config = [
-    'userClass' => User::class,
+    'userClass' => Users::class,
     'db' => [
         'dsn' => $_ENV['DB_DSN'],
         'user' => $_ENV['DB_USER'],
@@ -94,6 +94,21 @@ $app->router->get('/manageVolunteers',[AdminController::class,'manageVolunteers'
 $app->router->get('/manageUsers',[AdminController::class,'manageUsers']);
 $app->router->get('/managePayments',[AdminController::class,'managePayments']);
 $app->router->get('/manageAdmin',[AdminController::class,'manageAdmin']);
+$app->router->get('/manageNews',[AdminController::class,'manageNews']);
+
+
+
+$app->router->post('/deleteItem',[AdminController::class,'deleteItem']);
+$app->router->post('/editItem',[AdminController::class,'editItem']);
+$app->router->get('/manageCards',[AdminController::class,'manageCards']);
+$app->router->get('/manageOffers',[AdminController::class,'manageOffers']);
+$app->router->get('/settings',[AdminController::class,'settings']);
+
+$app->router->get('/addElement',[AdminController::class,'addElement']);
+$app->router->post('/addElement',[AdminController::class,'addElement']);
+
+$app->router->get('/validate',[AdminController::class,'validate']);
+
 
 
 

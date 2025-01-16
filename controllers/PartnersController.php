@@ -8,7 +8,7 @@ use app\core\middlewares\PartnerMiddleware;
 use app\core\Request;
 use app\core\Utils;
 use app\models\Partners;
-use app\models\User;
+use app\models\Users;
 
 class PartnersController extends Controller
 {
@@ -100,7 +100,7 @@ public function PartnerProfile(){
         }
         if ($request->isPost()){
             $email = $request->getBody()['email'];
-            $user = User::findOneObject(['email'=> $email ]);
+            $user = Users::findOneObject(['email'=> $email ]);
             $partner_id = App::$app->session->get('user');
             $partner = Partners::findWhere(['partner_id' => $partner_id]);
 

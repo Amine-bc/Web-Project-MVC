@@ -15,7 +15,7 @@ use app\models\Donations;
 use app\models\Notifications;
 use app\models\Partners;
 use app\models\SubscriptionPayments;
-use app\models\User;
+use app\models\Users;
 use app\models\Volunteering;
 
 class UserController extends Controller{
@@ -34,7 +34,7 @@ class UserController extends Controller{
         }
 
     public function register(Request $request){
-        $registerModel = new User();
+        $registerModel = new Users();
 
         if ($request->getMethod() === 'post') {
             // Load form data into the model
@@ -84,12 +84,12 @@ class UserController extends Controller{
         if ($admin && $adminController->login($admin, $request) ) {
             App::$app->session->set('user', $admin[0]['id']);
             App::$app->session->set('role', 'admin');
-            $userAdmin = new User();
+            $userAdmin = new Users();
             App::$app->user = $userAdmin;
             return true ;
         }
 
-        $user = User::findOneObject(['email' => $model->email]);
+        $user = Users::findOneObject(['email' => $model->email]);
         $partner = Partners::findWhere(['email' => $model->email]);
 
         $partnerController = new PartnersController();
@@ -98,7 +98,7 @@ class UserController extends Controller{
         if( $partner && $partnerController->login($partner, $request) ) {
             App::$app->session->set('user', $partner[0]['partner_id']);
             App::$app->session->set('role', 'partner');
-            $user = new User();
+            $user = new Users();
             App::$app->user = $user;
             return true ;
         }
@@ -117,7 +117,7 @@ class UserController extends Controller{
 
     public function profile(Request $request){
         $userId = App::$app->session->get('user') ?? null;
-        $user = User::findOneObject(['user_id' => $userId]);
+        $user = Users::findOneObject(['user_id' => $userId]);
         $donations = DONATIONS::findAll();
         $subscriptions = SubscriptionPayments::findWhere(['user_id' => $userId]);
         $volunteering = Volunteering::findAll();
@@ -128,7 +128,7 @@ public function dashboard()
     {
         $userId = App::$app->user->user_id ;
         $where = ['user_id' => $userId];
-        $user = User::findOneObject(['user_id' => $userId]);
+        $user = Users::findOneObject(['user_id' => $userId]);
 
         $donationsfromDb = DONATIONS::findWhereinTableJoin(
             $where,
@@ -183,13 +183,13 @@ public function dashboard()
         if ($request->isGet()) {
 
             $userId = App::$app->user->user_id ;
-            $user = User::findOneObject(['user_id' => $userId]);
+            $user = Users::findOneObject(['user_id' => $userId]);
 
             return $this->render('editProfile', ['user'=>$user]);
 
         }elseif ($request->isPost()) {
             $attributes = [];
-            $registerModel = new User();
+            $registerModel = new Users();
 
             foreach ($request->getBody() as $key => $value) {
                     $attributes[$key] = $value ;
@@ -239,7 +239,7 @@ public function starPartner(Request $request)
 {
     $partner_id = ($request->getBody())['partner_id'];
     $user_id = App::$app->user->user_id ;
-    $UserModel = new User();
+    $UserModel = new Users();
     $res = $UserModel->addStar($partner_id, $user_id);
     return $this->partnersUser(new Request());
 }

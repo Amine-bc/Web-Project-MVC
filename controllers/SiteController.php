@@ -14,7 +14,7 @@ use app\models\Donations;
 use app\models\LoginForm;
 use app\models\News;
 use app\models\Partners;
-use app\models\User;
+use app\models\Users;
 use app\models\Volunteering;
 
 class SiteController extends Controller
@@ -82,7 +82,7 @@ class SiteController extends Controller
     public function login(Request $request)
     {
         //var_dump($request->getBody(), $request->getRouteParam('id'));
-        $userModel = new User();
+        $userModel = new Users();
         $userController = new UserController();
         if ($request->getMethod() === 'post') {
             $userModel->loadData($request->getBody());

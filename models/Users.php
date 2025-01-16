@@ -5,7 +5,7 @@ namespace app\models;
 use app\core\UserModel;
 use PDO;
 
-class User extends UserModel
+class Users extends UserModel
 {
     public int $user_id ; // Matches 'user_id' in the table
     public string $name = '';
@@ -23,6 +23,8 @@ class User extends UserModel
     public string $subscription_status = 'active'; // Default status
     public string $join_date = ''; // Will use default in DB
     public ?string $expiration_date = null;
+
+    public ?bool $validated = false;
 
     public static function tableName(): string
     {
